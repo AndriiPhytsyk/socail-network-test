@@ -33,7 +33,7 @@ export class AuthenticationService {
   refreshToken() {
     const headers: HttpHeaders = new HttpHeaders();
     headers.append('Authorization', this.getRefreshToken());
-    return this.http.get<any>(`http://${GLOBAL.url}auth/token/refresh`, {
+    return this.http.get<any>(`http://${GLOBAL.url}/auth/token/refresh`, {
       headers
     }).pipe(tap((result) => {
       this.storeTokens(this.storeTokens(result.tokens));
@@ -44,7 +44,7 @@ export class AuthenticationService {
     return localStorage.getItem(this.JWT_TOKEN);
   }
 
-  private getRefreshToken() {
+  getRefreshToken() {
     return localStorage.getItem(this.REFRESH_TOKEN);
   }
 

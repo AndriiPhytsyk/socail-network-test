@@ -25,7 +25,9 @@ export class HomeComponent  {
     this.confirmationDialogService.confirm('Please confirm..', 'Do you really want to delete user ?')
       .then((confirmed) => {
         if (confirmed) {
-          this.userService.deleteUser().subscribe(result => {
+          this.userService.deleteUser()
+            .subscribe(result => {
+            console.log('result',result)
             if (result['success']) {
               this.router.navigate(['/login']);
             }

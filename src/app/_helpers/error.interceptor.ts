@@ -20,8 +20,8 @@ export class ErrorInterceptor implements HttpInterceptor {
         //   location.reload(true);
       }
       const error = err.error.message || err.statusText;
-      this.alertService.error('Шось пішло не так');
-      return throwError(error);
+      this.alertService.error("Шось пішло не так");
+      return throwError(err);
     }));
   }
 }

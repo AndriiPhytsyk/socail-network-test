@@ -1,28 +1,28 @@
-<h5 class="mb-5 text-center">{{userInfo.name+" "+userInfo.lastname}}</h5>
+<h5 class="mb-5 text-center">{{userInfo?.name+" "+userInfo?.lastname}}</h5>
 <div class="row" *ngIf="isLoaded">
   <div class="col-6 text-center" >
-    <img src="{{userInfo.image}}" height="150px" width="150px" class="mx-auto img-fluid img-circle d-block" alt="avatar">
+    <img src="{{userInfo?.image}}" height="150px" width="150px" class="mx-auto img-fluid img-circle d-block" alt="avatar">
   </div>
   <div class="col-6">
     <h6>{{'Про себе' | translate}}</h6>
     <p>
-      {{userInfo.description}}
+      {{userInfo?.description}}
     </p>
     <h6>{{'Електронна пошта' | translate}}</h6>
     <p>
-      {{userInfo.email}}
+      {{userInfo?.email}}
     </p>
     <h6>{{'Країна' | translate}}</h6>
     <p>
-      {{userInfo.country}}
+      {{userInfo?.country}}
     </p>
     <h6>{{'Місто' | translate}}</h6>
     <p>
-      {{userInfo.city}}
+      {{userInfo?.city}}
     </p>
     <h6>{{'Вік' | translate}}</h6>
     <p>
-      {{userInfo.age}}
+      {{userInfo?.age}}
     </p>
   </div>
 </div>

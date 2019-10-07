@@ -16,7 +16,10 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getAllUsers()
-      .subscribe(users => this.users = users['users']
-        .filter(user => !user.deleted));
+      .subscribe(users => {
+        console.log(888, users)
+        this.users = users['users']
+          .filter(user => !user.deleted);
+      });
   }
 }

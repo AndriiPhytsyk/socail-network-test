@@ -1,11 +1,9 @@
-<<<<<<< HEAD
-import { Injectable } from '@angular/core';
-import {Injectable} from '@angular/core';
-import {HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse} from '@angular/common/http';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
 
+import { Injectable } from '@angular/core';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
+import { catchError, filter, take, switchMap } from 'rxjs/operators';
 import {AuthenticationService} from '../services/authentication.service';
-import {catchError, filter, switchMap, take} from 'rxjs/operators';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -13,16 +11,15 @@ export class JwtInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(private authenticationService: AuthenticationService) {
-  }
+  constructor(public authService: AuthenticationService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-
-    if (this.authenticationService.getAccessToken()) {
-      request = this.addToken(request, this.authenticationService.getAccessToken());
+    if (this.authService.getAccessToken()) {
+      console.log('request', request)
+      request = this.addToken(request, this.authService.getAccessToken());
     }
-    // add authorization header with jwt token if available
+
     return next.handle(request).pipe(catchError(error => {
       if (error instanceof HttpErrorResponse && error.status === 401) {
         return this.handle401Error(request, next);
@@ -31,42 +28,12 @@ export class JwtInterceptor implements HttpInterceptor {
       }
     }));
   }
-=======
-import {Injectable} from '@angular/core';
-import {HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
-
-import {AuthenticationService} from '../services/authentication.service';
-import {catchError} from 'rxjs/operators';
-
-@Injectable()
-export class JwtInterceptor implements HttpInterceptor {
-  constructor(private authenticationService: AuthenticationService) {
-  }
-
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // add authorization header with jwt token if available
-    let currentUser = this.authenticationService.currentUserValue;
-    if (currentUser && currentUser.tokens.accessToken) {
-      request = request.clone({
-        setHeaders: {
-          Authorization: `${currentUser['tokens']['accessToken']}`
-        }
-      });
-    }
-    return next.handle(request).pipe(catchError(error => {
-      if (error instanceof HttpErrorResponse && error.status === 401 && currentUser.tokens.accessToken) {
-        this.authenticationService.refreshToken();
-      }
-    }))
-  }
-}
->>>>>>> f5c25b13de2729e4c1bfb6e08f26b00761aa3b44
 
   private addToken(request: HttpRequest<any>, token: string) {
+    console.log('addToken', request);
     return request.clone({
       setHeaders: {
-        'Authorization': `${token}`
+        'Authorization':  token
       }
     });
   }
@@ -76,20 +43,20 @@ export class JwtInterceptor implements HttpInterceptor {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
 
-      return this.authenticationService.refreshToken().pipe(
-        switchMap((user) => {
+      return this.authService.refreshToken().pipe(
+        switchMap((result: any) => {
           this.isRefreshing = false;
-          this.refreshTokenSubject.next(user.tokens.accessToken);
-          return next.handle(this.addToken(request, user.tokens.accessToken));
+          this.refreshTokenSubject.next(result.tokens.accessToken);
+          return next.handle(this.addToken(request, result.tokens.accessToken));
         }));
+
     } else {
       return this.refreshTokenSubject.pipe(
         filter(token => token != null),
         take(1),
-        switchMap(jwt => {
-          return next.handle(this.addToken(request, jwt));
+        switchMap(accessToken => {
+          return next.handle(this.addToken(request, accessToken));
         }));
     }
   }
 }
-

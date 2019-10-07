@@ -1,5 +1,7 @@
-import {Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../../../services/user.service';
+import {ActivatedRoute, Params} from '@angular/router';
+import {AlertService} from '../../../shared/services/alert.service';
 
 @Component({
  selector: 'app-user-info',
@@ -10,27 +12,27 @@ import {UserService} from '../../../../services/user.service';
 export class UserInfoComponent implements OnInit {
 
  selectedFile = null;
+ userInfo = {};
+ isImageLoaded = false;
 
-  imageChangedEvent: any = '';
-  croppedImage: any = '';
-  isImageLoaded = false;
-  isCropperReady = false;
-  isImageUploaded = false;
+ constructor(private userService: UserService,
+             private route: ActivatedRoute,
+             private alertService: AlertService) { }
 
- constructor(private userService: UserService) { }
+ ngOnInit() {
+   this.route.queryParams
+     .subscribe((params: Params) => {
+       if (params['informationEdited']) {
+         this.alertService.success('Information was successfully edited');
+       }
+     });
 
- userInfo = {
-   email: "phytsyk@gmail.com",
-   name: 'Andrii',
-   lastname: "Fytsyk",
-   country:" Ukraine",
-   city: "Lviv",
-   age: 24,
-   description: "Frontend developer",
-   image: "https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwjHxO-Yu4XlAhX_AxAIHQrnA6sQjRx6BAgBEAQ&url=https%3A%2F%2Fbipbap.ru%2Fkrasivye-kartinki%2Fkrasivye-kartinki-horoshego-kachestva-37-foto.html&psig=AOvVaw1umZrtOp77pAnQ3uLIOX58&ust=1570376690662507"
- };
-
- ngOnInit() { }
+   this.userService.getUsersMe()
+     .subscribe(result => {
+       console.log(result)
+       this.userInfo = result['user'];
+   });
+ }
 
   fileChangeEvent(event: any): void {
     this.selectedFile = <File>event.target.files[0];
@@ -46,7 +48,7 @@ export class UserInfoComponent implements OnInit {
       };
     } else {
       // need to change
-      alert('not image');
+      this.alertService.warn('Please select an image');
     }
   }
 
@@ -58,6 +60,5 @@ export class UserInfoComponent implements OnInit {
         this.isImageLoaded = false;
       });
   }
-
 
 }

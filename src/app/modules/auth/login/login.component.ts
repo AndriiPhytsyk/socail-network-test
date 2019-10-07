@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
+    this.authenticationService.login({login:this.f.username.value, password:this.f.password.value})
       .pipe(first())
       .subscribe(
         data => {
@@ -78,11 +78,10 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/users/me']);
         },
         error => {
-          this.showMessage('Не правильний логін або пароль', 'danger' )
+          this.showMessage('Не правильний логін або пароль', 'danger' );
           this.loading = false;
         });
   }
-
 }
 
 

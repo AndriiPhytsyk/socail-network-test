@@ -18,9 +18,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {AlertComponent} from './modules/shared/components/alert';
 import {AlertService} from './modules/shared/services/alert.service';
-// import {SharedModule} from './modules/shared/shared.module';
-// import {ConfirmationDialogComponent} from './modules/shared/components/confirmation-dialog.component';
-// import {ConfirmationDialogService} from './modules/shared/services/confirmation-dialog.service';
+
 
 
 

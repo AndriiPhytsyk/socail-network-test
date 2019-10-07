@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-// import {ConfirmationDialogService} from '../shared/services/confirmation-dialog.service';
-import {UsersService} from '../shared/services/users.service';
 import {AuthenticationService} from '../../services/authentication.service';
 import {TranslateService} from '@ngx-translate/core';
-import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
 import {ConfirmationDialogService} from '../shared/services/confirmation-dialog.service';
+import {UserService} from '../../services/user.service';
 
 
 
@@ -19,8 +17,8 @@ export class HomeComponent  {
   constructor( private authenticationService: AuthenticationService,
                private translate: TranslateService,
                private confirmationDialogService: ConfirmationDialogService,
-               private userService: UserService,
-               private router: Router
+               private router: Router,
+               private userService: UserService
 ) {}
 
   public deleteUser() {

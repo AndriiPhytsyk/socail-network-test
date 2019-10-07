@@ -41,13 +41,13 @@ export class AlertComponent {
         // return css class based on alert type
         switch (alert.type) {
             case AlertType.Success:
-                return 'alert alert-success col-sm-2 mx-auto display-center';
+                return 'alert alert-success col-sm-2 mx-auto display-top text-center';
             case AlertType.Error:
-                return 'alert alert-danger  col-sm-2 mx-auto display-center';
+                return 'alert alert-danger  col-sm-2 mx-auto display-top text-center';
             case AlertType.Info:
-                return 'alert alert-info col-sm-2 mx-auto display-center';
+                return 'alert alert-info col-sm-2 mx-auto display-top text-center';
             case AlertType.Warning:
-                return 'alert alert-warning col-sm-2 mx-auto display-center';
+                return 'alert alert-warning col-sm-2 mx-auto display-top text-center';
         }
     }
 }

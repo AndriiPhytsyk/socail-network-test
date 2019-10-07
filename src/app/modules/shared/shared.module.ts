@@ -5,18 +5,13 @@ import {MaterialModule} from '../../material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
-import {UsersService} from './services/users.service';
 import {HttpClientModule} from '@angular/common/http';
 import {ImageCropperModule} from 'ngx-image-cropper';
 import {ConfirmationDialogComponent} from './components/confirmation-dialog/confirmation-dialog.component';
 import {ConfirmationDialogService} from './services/confirmation-dialog.service';
-import {AlertComponent} from './components/alert';
-
-
-
 
 @NgModule({
-  declarations: [ ConfirmationDialogComponent ],
+  declarations: [ConfirmationDialogComponent],
 
   exports: [
     CommonModule,
@@ -32,8 +27,9 @@ import {AlertComponent} from './components/alert';
   imports: [
     CommonModule],
 
-  entryComponents: [ ConfirmationDialogComponent],
-  providers: [ ConfirmationDialogService,UsersService ]
+  entryComponents: [ConfirmationDialogComponent],
+  providers: [ConfirmationDialogService]
 
 })
-export class SharedModule { }
+export class SharedModule {
+}

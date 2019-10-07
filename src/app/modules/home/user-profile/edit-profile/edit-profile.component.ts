@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../../services/user.service';
 import {UserInfo} from '../../../shared/models/userInfo';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-edit-profile',
@@ -11,15 +12,22 @@ import {UserInfo} from '../../../shared/models/userInfo';
 export class EditProfileComponent implements OnInit {
 
   submitted = false;
-  @Input() userInfo;
-  @Output() onUserInfoEdited = new EventEmitter<UserInfo>();
+  userInfo = {};
+  private id: string;
 
   userInfoForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {
+  constructor(private formBuilder: FormBuilder,
+              private userService: UserService,
+              private route: ActivatedRoute,
+              private router: Router
+  ) {
   }
 
   ngOnInit() {
+
+    this.userService.getUsersMe().subscribe(result => this.userInfo = result['user']);
+
     this.userInfoForm = this.formBuilder.group({
       name: new FormControl(null, [Validators.required]),
       lastname: new FormControl(null, [Validators.required]),
@@ -38,12 +46,14 @@ export class EditProfileComponent implements OnInit {
     this.userService.editUserInfo(userInfo)
       .subscribe(result => {
         if (result['success']) {
-          // userInfo['image'] = '//placehold.it/150';
           this.userInfo = userInfo;
-          this.onUserInfoEdited.emit(userInfo);
+          this.router.navigate(['/users/me'], {
+            queryParams: {
+              informationEdited: true
+            }
+          })
         }
         this.submitted = true;
       });
   }
-
 }

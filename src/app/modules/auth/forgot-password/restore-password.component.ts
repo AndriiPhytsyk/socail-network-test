@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {NgForm} from '@angular/forms';
+import {AlertService} from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-restore-password',
@@ -9,7 +10,7 @@ import {NgForm} from '@angular/forms';
 })
 export class RestorePasswordComponent implements OnInit {
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(private authService: AuthenticationService, private alertService: AlertService) { }
 
   passwordResetEmail: string;
 
@@ -18,17 +19,14 @@ export class RestorePasswordComponent implements OnInit {
 
   onSubmit(form: NgForm) {
 
-    console.log(222,form)
     if(form.invalid) {
-      return
+      return;
     }
 
     const {passwordResetEmail} = form.value;
-    debugger;
-
-    this.authService.forgotPassword(passwordResetEmail).subscribe(result=> {
+    this.authService.forgotPassword(passwordResetEmail).subscribe(result => {
       if (result['success']) {
-        alert('check your email')
+        this.alertService.success('Check your email');
       }
     })
   }

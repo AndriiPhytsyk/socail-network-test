@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {UsersService} from '../../shared/services/users.service';
+import {UserService} from '../../../services/user.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -9,21 +9,8 @@ import {UsersService} from '../../shared/services/users.service';
 })
 export class UserProfileComponent implements OnInit {
 
-  submitted = false;
-
-  userInfo = {};
-  updatedInfo = {};
-
-  constructor( private usersService: UsersService ) {}
-
-  ngOnInit() {
-    // this.usersService.getUsersMe()
-    //   .subscribe(userInfo => {
-    //     this.userInfo = userInfo['user'];
-    //   });
+  constructor(private userService: UserService) {
   }
 
-  userInfoEdited(updatedInfo) {
-    this.userInfo = updatedInfo;
-  }
+  ngOnInit() { }
 }

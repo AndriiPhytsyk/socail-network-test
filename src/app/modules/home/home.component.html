@@ -2,6 +2,10 @@
   <a class="navbar-brand" [routerLink]="['/users/me']">Social-network</a>
   <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
     <ul class="navbar-nav dropdown justify-content " ngbDropdown>
+      <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" #searchUsers>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="searchUsersByWord(searchUsers.value)">Search</button>
+      </form>
       <li class="d-flex align-items-center">
         <mat-select #langSelect class="text_uppercase" (selectionChange)="translate.use(langSelect.value)" name=""
                     id="">

@@ -39,4 +39,14 @@ export class UserService {
     return this.http.get(`http://${GLOBAL.url}/users/me`);
   }
 
+  seachUserByWord(searchWord) {
+    return this.http.get(`http://${GLOBAL.url}/search`, {
+      params: {
+        search: searchWord,
+        limit: 10,
+        page: 1
+      }
+    });
+  }
+
 }

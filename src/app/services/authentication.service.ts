@@ -36,7 +36,8 @@ export class AuthenticationService {
     return this.http.get<any>(`http://${GLOBAL.url}/auth/token/refresh`, {
       headers
     }).pipe(tap((result) => {
-      this.storeTokens(this.storeTokens(result.tokens));
+      console.log(77, result);
+      this.storeTokens(result.tokens);
     }));
   }
 

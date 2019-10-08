@@ -18,7 +18,7 @@ export class HomeComponent  {
                private translate: TranslateService,
                private confirmationDialogService: ConfirmationDialogService,
                private router: Router,
-               private userService: UserService
+               private userService: UserService,
 ) {}
 
   public deleteUser() {
@@ -45,6 +45,13 @@ export class HomeComponent  {
         }
       })
       .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+  }
+
+  searchUsersByWord(searchWord: string) {
+    this.userService.seachUserByWord()
+      .subscribe(result => {
+        debugger;
+      })
   }
 
 }

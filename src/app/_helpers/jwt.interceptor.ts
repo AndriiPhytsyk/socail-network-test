@@ -32,6 +32,7 @@ export class JwtInterceptor implements HttpInterceptor {
   private addToken(request: HttpRequest<any>, token: string) {
     console.log('addToken', request);
     if (request.url.match(/auth\/token\/refresh/)) {
+      
       token = this.authService.getRefreshToken();
     }
     return request.clone({
@@ -50,20 +51,20 @@ export class JwtInterceptor implements HttpInterceptor {
 
       return this.authService.refreshToken().pipe(
         switchMap((result: any) => {
-          console.log(4,result);
-          debugger;
+          console.log(123,result);
           this.isRefreshing = false;
           this.refreshTokenSubject.next(result.tokens.accessToken);
           return next.handle(this.addToken(request, result.tokens.accessToken));
         }));
+
     } else {
       console.log(3);
-
       return this.refreshTokenSubject.pipe(
         filter(token => token != null),
         take(1),
         switchMap(accessToken => {
           this.isRefreshing = false;
+
           return next.handle(this.addToken(request, accessToken));
         }));
     }

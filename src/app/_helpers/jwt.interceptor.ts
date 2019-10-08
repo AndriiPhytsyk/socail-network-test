@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse} from '@angular/common/http';
-import {Observable, throwError, BehaviorSubject} from 'rxjs';
-import {catchError, filter, take, switchMap} from 'rxjs/operators';
-import {AuthenticationService} from '../services/authentication.service';
+import { Injectable } from '@angular/core';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
+import { catchError, filter, take, switchMap, finalize } from 'rxjs/operators';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -13,15 +13,13 @@ export class JwtInterceptor implements HttpInterceptor {
   constructor(public authService: AuthenticationService) {
   }
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> | any {
 
     if (this.authService.getAccessToken()) {
       request = this.addToken(request, this.authService.getAccessToken());
     }
-
     return next.handle(request).pipe(catchError(error => {
-      console.log(error);
-      if (error instanceof HttpErrorResponse && error.status === 401) {
+      if (error instanceof HttpErrorResponse && error.status === 401 && !request.url.match(/auth\/token\/refresh/)) {
         return this.handle401Error(request, next);
       } else {
         return throwError(error);
@@ -30,9 +28,7 @@ export class JwtInterceptor implements HttpInterceptor {
   }
 
   private addToken(request: HttpRequest<any>, token: string) {
-    console.log('addToken', request);
     if (request.url.match(/auth\/token\/refresh/)) {
-      
       token = this.authService.getRefreshToken();
     }
     return request.clone({
@@ -43,28 +39,30 @@ export class JwtInterceptor implements HttpInterceptor {
   }
 
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
-    console.log(1, this.isRefreshing);
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
-      console.log(2);
 
       return this.authService.refreshToken().pipe(
         switchMap((result: any) => {
-          console.log(123,result);
           this.isRefreshing = false;
           this.refreshTokenSubject.next(result.tokens.accessToken);
           return next.handle(this.addToken(request, result.tokens.accessToken));
+        }),
+        catchError(err => {
+          return this.authService.logout() as any;
+        }),
+        finalize(() => {
+          this.isRefreshing = false;
         }));
-
     } else {
-      console.log(3);
+      this.isRefreshing = false;
       return this.refreshTokenSubject.pipe(
-        filter(token => token != null),
+        filter(token => {
+          return token != null;
+        }),
         take(1),
         switchMap(accessToken => {
-          this.isRefreshing = false;
-
           return next.handle(this.addToken(request, accessToken));
         }));
     }

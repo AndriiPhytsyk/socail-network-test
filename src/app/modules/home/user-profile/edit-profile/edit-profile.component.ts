@@ -41,6 +41,7 @@ export class EditProfileComponent implements OnInit {
   onSubmit() {
     let {name, lastname, city, country, age, description} = this.userInfoForm.value;
     age = +age;
+    console.log(987, typeof age)
     const userInfo = new UserInfo(name, lastname, city, country, age, description);
 
     this.userService.editUserInfo(userInfo)
@@ -51,7 +52,7 @@ export class EditProfileComponent implements OnInit {
             queryParams: {
               informationEdited: true
             }
-          })
+          });
         }
         this.submitted = true;
       });

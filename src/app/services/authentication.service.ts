@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {GLOBAL} from './global';
-import {Tokens} from '../models/tokens';
-import {Router} from '@angular/router';
-import {tap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { GLOBAL } from './global';
+import { Tokens } from '../models/tokens';
+import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -36,8 +36,8 @@ export class AuthenticationService {
     return this.http.get<any>(`http://${GLOBAL.url}/auth/token/refresh`, {
       headers
     }).pipe(tap((result) => {
-      console.log(77, result);
       this.storeTokens(result.tokens);
+      return result;
     }));
   }
 
@@ -49,7 +49,7 @@ export class AuthenticationService {
     return localStorage.getItem(this.REFRESH_TOKEN);
   }
 
-  private storeAccessToken(jwt:string  ) {
+  private storeAccessToken(jwt: string) {
     localStorage.setItem(this.JWT_TOKEN, jwt);
   }
 
@@ -71,11 +71,11 @@ export class AuthenticationService {
   }
 
   forgotPassword(email) {
-    return this.http.post(`http://${GLOBAL.url}/auth/forgotPassword`, {email});
+    return this.http.post(`http://${GLOBAL.url}/auth/forgotPassword`, { email });
   }
 
   changePassword(password, token) {
-    return this.http.post(`http://${GLOBAL.url}/auth/resetPassword`, {password, token});
+    return this.http.post(`http://${GLOBAL.url}/auth/resetPassword`, { password, token });
   }
 
 

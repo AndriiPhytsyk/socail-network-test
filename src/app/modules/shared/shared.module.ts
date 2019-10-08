@@ -9,9 +9,13 @@ import {HttpClientModule} from '@angular/common/http';
 import {ImageCropperModule} from 'ngx-image-cropper';
 import {ConfirmationDialogComponent} from './components/confirmation-dialog/confirmation-dialog.component';
 import {ConfirmationDialogService} from './services/confirmation-dialog.service';
+import {PaginationComponent} from './components/pagination/pagination.component';
 
 @NgModule({
-  declarations: [ConfirmationDialogComponent],
+  declarations: [
+    ConfirmationDialogComponent,
+    PaginationComponent
+  ],
 
   exports: [
     CommonModule,
@@ -23,9 +27,13 @@ import {ConfirmationDialogService} from './services/confirmation-dialog.service'
     FormsModule,
     AngularFontAwesomeModule,
     ImageCropperModule,
+    PaginationComponent
   ],
   imports: [
-    CommonModule],
+    CommonModule,
+    FormsModule
+
+  ],
 
   entryComponents: [ConfirmationDialogComponent],
   providers: [ConfirmationDialogService]

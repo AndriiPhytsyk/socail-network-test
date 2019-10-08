@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AuthenticationService} from '../../services/authentication.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Router} from '@angular/router';
@@ -13,6 +13,8 @@ import {UserService} from '../../services/user.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent  {
+
+  searchUsers: string;
 
   constructor( private authenticationService: AuthenticationService,
                private translate: TranslateService,
@@ -47,11 +49,9 @@ export class HomeComponent  {
       .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
   }
 
-  searchUsersByWord(searchWord: string) {
-    this.userService.seachUserByWord()
-      .subscribe(result => {
-        debugger;
-      })
+  searchUsersByWord() {
+console.log(44, this.searchUsers)
+    this.userService.searchUserByWord(this.searchUsers)
+      .subscribe();
   }
-
 }

@@ -2,17 +2,18 @@
 import {HttpClient} from '@angular/common/http';
 
 import {GLOBAL} from './global';
-import {Observable} from 'rxjs';
-
-// import {map, Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {map, tap} from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  getAllUsers() {
-    return this.http.get(`http://${GLOBAL.url}/users`);
+  $users = new BehaviorSubject([]);
+
+  getAllUsers(page: number, limit: number = 10  ) {
+    return this.http.get(`http://${GLOBAL.url}/users?page=${page}&limit=${limit}`);
   }
 
   deleteUser() {
@@ -39,14 +40,11 @@ export class UserService {
     return this.http.get(`http://${GLOBAL.url}/users/me`);
   }
 
-  seachUserByWord(searchWord) {
-    return this.http.get(`http://${GLOBAL.url}/search`, {
-      params: {
-        search: searchWord,
-        limit: 10,
-        page: 1
-      }
-    });
+  searchUserByWord(searchWord = '', page = 1, limit = 10) {
+    return this.http.get(`http://${GLOBAL.url}/search?search=${searchWord}&limit=${limit}&page=${page}`)
+      .pipe(tap(users => {
+        this.$users.next(users);
+      }));
   }
 
 }

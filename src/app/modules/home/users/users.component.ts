@@ -18,41 +18,48 @@ export class UsersComponent implements OnInit, OnDestroy {
   private _currentSearchValue: string = '';
   private _limitUsers: number = 10;
 
-  subscription: Subscription;
+  private usersLoaded: boolean = false;
+
+  sub1: Subscription;
+  sub2: Subscription;
 
   constructor(private userService: UserService) {
   }
 
   ngOnInit() {
-    this.userService.$users.subscribe(users => {
+    this.sub1 = this.userService.$users.subscribe(users => {
+      console.log(777,users)
       this.users = users['users'];
-      this.totalUsersAmount = users.total;
+      this.totalUsersAmount = users['total'];
     });
 
-    this.userService.getAllUsers(this._currentPage)
+    this.sub2 = this.userService.getAllUsers(this._currentPage)
       .subscribe(users => {
+        console.log(888,users)
+
         this.users = users['users'];
         this.totalUsersAmount = users['total'];
+        this.usersLoaded = true;
       });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.sub1.unsubscribe();
+    this.sub2.unsubscribe();
   }
 
   public goToPage(page: number): void {
     this._currentPage = page;
     this._loadUsers(
       this._currentPage,
-      this._currentSearchValue
+      this._limitUsers
     );
   }
 
-  private _loadUsers(page: number = 1, searchParam: string = '') {
+  private _loadUsers(page: number = 1, limit: number = 1) {
     this.userService.getAllUsers(
-      page, searchParam
+      page, limit
     ).subscribe((response) => {
-      console.log(666, response)
       this.users = response['users'];
       this.totalUsersAmount = response['total'];
     }, (error) => console.error(error));

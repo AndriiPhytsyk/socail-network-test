@@ -5,7 +5,9 @@
     </span>
     {{ user.name + " " + user.lastname }}</li>
 </ul>
+
 <app-pagination
+  *ngIf="usersLoaded"
   [setPagination]="{
         'itemsCount': totalUsersAmount,
         'pageSize': 10

@@ -10,7 +10,7 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  $users = new BehaviorSubject([]);
+  $users = new BehaviorSubject({});
 
   getAllUsers(page: number, limit: number = 10  ) {
     return this.http.get(`http://${GLOBAL.url}/users?page=${page}&limit=${limit}`);

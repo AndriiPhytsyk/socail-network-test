@@ -50,7 +50,6 @@ export class HomeComponent  {
   }
 
   searchUsersByWord() {
-console.log(44, this.searchUsers)
     this.userService.searchUserByWord(this.searchUsers)
       .subscribe();
   }

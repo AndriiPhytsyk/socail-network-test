@@ -78,8 +78,19 @@ export class AuthenticationService {
     return this.http.post(`http://${GLOBAL.url}/auth/resetPassword`, { password, token });
   }
 
-  signInWithFacebook(token: string, id: number) {
+  signInWithFacebook(token: string, id: string) {
     return this.http.post(`http://${GLOBAL.url}/auth/facebook`, { token, id })
+      .pipe(map(res => {
+        if (res && res['tokens']) {
+          this.storeTokens(res['tokens']);
+          return true;
+        }
+      }));
+  }
+
+  signInWithGoogle(token: string, id: string) {
+    debugger
+    return this.http.post(`http://${GLOBAL.url}/auth/google`, { token, id })
       .pipe(map(res => {
         if (res && res['tokens']) {
           this.storeTokens(res['tokens']);

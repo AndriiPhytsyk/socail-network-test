@@ -20,8 +20,6 @@ import {AlertComponent} from './modules/shared/components/alert';
 import {AlertService} from './modules/shared/services/alert.service';
 
 
-
-
 // AoT requires an exported function for factories
 
 export function HttpLoaderFactory(http: HttpClient) {

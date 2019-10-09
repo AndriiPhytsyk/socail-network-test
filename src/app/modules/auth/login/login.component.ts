@@ -5,9 +5,8 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {first} from 'rxjs/operators';
 import {InfoMessage} from '../../shared/models/info-message';
-
-declare var FB: any;
-
+import {AuthService, SocialUser} from 'angularx-social-login';
+import {FacebookLoginProvider, GoogleLoginProvider} from 'angularx-social-login';
 
 @Component({
   selector: 'app-log-in',
@@ -20,6 +19,9 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
 
+  private user: SocialUser;
+  private loggedIn: boolean;
+
   message: InfoMessage;
 
   constructor(
@@ -28,34 +30,21 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private translate: TranslateService,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private socialAuthService: AuthService
   ) {
     // redirect to home if already logged in
-    if (this.authenticationService.isLoggedIn()) {
-      this.router.navigate(['/users/me']);
-    }
+    // if (this.authenticationService.isLoggedIn()) {
+    //   this.router.navigate(['/users/me']);
+    // }
+
   }
 
   ngOnInit() {
-    (window as any).fbAsyncInit = function() {
-      FB.init({
-        appId      : '513151245932065',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v3.1'
-      });
-      FB.AppEvents.logPageView();
-    };
-
-    (function(d, s, id){
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement(s); js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-
+    this.socialAuthService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
+    });
 
     this.message = new InfoMessage('danger', '')
     this.route.queryParams
@@ -108,27 +97,49 @@ export class LoginComponent implements OnInit {
         });
   }
 
-  signInWithFacebook() {
-    console.log('submit login to facebook');
-    // FB.login();
-    FB.login((response) => {
-      console.log('submitLogin', response);
-      if (response.authResponse) {
-        //login success
-        //login success code here
-        //redirect to home page
-        const {authResponse} = response;
-        this.authenticationService.signInWithFacebook(authResponse.accessToken, authResponse.userID)
-          .subscribe(res => {
-            this.ngZone.run(() => this.router.navigate(['/users/me'])).then()
+  signInWithGoogle(): void {
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
+      .then(res => {
+        this.authenticationService.signInWithGoogle(res.authToken, res.id);
+      })
+  }
+
+  signInWithFB(): void {
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID)
+      .then(res => {
+        debugger
+        this.authenticationService.signInWithFacebook(res.authToken, res.id)
+          .subscribe(response => {
             // this.router.navigate(['/users/me']);
           });
-      }
-      else {
-        console.log('User login failed');
-      }
-    });
+      });
   }
+
+  signOut(): void {
+    this.socialAuthService.signOut();
+  }
+
+  // signInWithFacebook() {
+  //   console.log('submit login to facebook');
+  //   // FB.login();
+  //   FB.login((response) => {
+  //     console.log('submitLogin', response);
+  //     if (response.authResponse) {
+  //       //login success
+  //       //login success code here
+  //       //redirect to home page
+  //       const {authResponse} = response;
+  //       this.authenticationService.signInWithFacebook(authResponse.accessToken, authResponse.userID)
+  //         .subscribe(res => {
+  //           this.ngZone.run(() => this.router.navigate(['/users/me'])).then();
+  //           // this.router.navigate(['/users/me']);
+  //         });
+  //     }
+  //     else {
+  //       console.log('User login failed');
+  //     }
+  //   });
+  // }
 }
 
 

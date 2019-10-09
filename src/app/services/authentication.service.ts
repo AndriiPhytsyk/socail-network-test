@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GLOBAL } from './global';
 import { Tokens } from '../models/tokens';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -76,6 +76,16 @@ export class AuthenticationService {
 
   changePassword(password, token) {
     return this.http.post(`http://${GLOBAL.url}/auth/resetPassword`, { password, token });
+  }
+
+  signInWithFacebook(token: string, id: number) {
+    return this.http.post(`http://${GLOBAL.url}/auth/facebook`, { token, id })
+      .pipe(map(res => {
+        if (res && res['tokens']) {
+          this.storeTokens(res['tokens']);
+          return true;
+        }
+      }));
   }
 
 

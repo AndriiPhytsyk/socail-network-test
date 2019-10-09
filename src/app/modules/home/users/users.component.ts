@@ -56,7 +56,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     );
   }
 
-  private _loadUsers(page: number = 1, limit: number = 1) {
+  private _loadUsers(page: number = 1, limit: number = 10) {
     this.userService.getAllUsers(
       page, limit
     ).subscribe((response) => {

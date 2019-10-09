@@ -11,6 +11,7 @@
     </mat-select>
     <mat-card-header>
       <mat-card-title>{{'Логін' | translate}}</mat-card-title>
+
     </mat-card-header>
     <form class="example-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <mat-card-content>
@@ -32,6 +33,10 @@
         </div>
       </mat-card-content>
       <button mat-stroked-button color="accent" class="btn-block">{{'Ввійти' | translate}}</button>
+      <div class="d-flex justify-content-center mt-2">
+        <button (click) = "signInWithFacebook()" type="button" class="flex-grow-1" mat-flat-button color="primary">Sign In With Facebook</button>
+      </div>
+
     </form>
     <div class="etc-login-form">
       <p>forgot your password? <a [routerLink]="['/forgot-password']">click here</a></p>

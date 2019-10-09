@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {first} from 'rxjs/operators';
 import {InfoMessage} from '../../shared/models/info-message';
+
+declare var FB: any;
+
 
 @Component({
   selector: 'app-log-in',
@@ -24,17 +27,37 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private ngZone: NgZone
   ) {
     // redirect to home if already logged in
-    // if (this.authenticationService.currentUserValue) {
-    //   this.router.navigate(['/users/me']);
-    // }
+    if (this.authenticationService.isLoggedIn()) {
+      this.router.navigate(['/users/me']);
+    }
   }
 
   ngOnInit() {
-    this.message = new InfoMessage('danger', '')
+    (window as any).fbAsyncInit = function() {
+      FB.init({
+        appId      : '513151245932065',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v3.1'
+      });
+      FB.AppEvents.logPageView();
+    };
 
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+
+    this.message = new InfoMessage('danger', '')
     this.route.queryParams
       .subscribe((params: Params) => {
         if (params['nowCanLogin']) {
@@ -52,15 +75,17 @@ export class LoginComponent implements OnInit {
     // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  private showMessage(text: string, type: string = 'danger'){
-      this.message = new InfoMessage(type, text);
-      window.setTimeout(() => {
-        this.message.text = '';
-      }, 5000);
+  private showMessage(text: string, type: string = 'danger') {
+    this.message = new InfoMessage(type, text);
+    window.setTimeout(() => {
+      this.message.text = '';
+    }, 5000);
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
+  get f() {
+    return this.loginForm.controls;
+  }
 
   onSubmit() {
     this.submitted = true;
@@ -70,7 +95,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.login({login:this.f.username.value, password:this.f.password.value})
+    this.authenticationService.login({login: this.f.username.value, password: this.f.password.value})
       .pipe(first())
       .subscribe(
         data => {
@@ -78,9 +103,31 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/users/me']);
         },
         error => {
-          this.showMessage('Не правильний логін або пароль', 'danger' );
+          this.showMessage('Не правильний логін або пароль', 'danger');
           this.loading = false;
         });
+  }
+
+  signInWithFacebook() {
+    console.log('submit login to facebook');
+    // FB.login();
+    FB.login((response) => {
+      console.log('submitLogin', response);
+      if (response.authResponse) {
+        //login success
+        //login success code here
+        //redirect to home page
+        const {authResponse} = response;
+        this.authenticationService.signInWithFacebook(authResponse.accessToken, authResponse.userID)
+          .subscribe(res => {
+            this.ngZone.run(() => this.router.navigate(['/users/me'])).then()
+            // this.router.navigate(['/users/me']);
+          });
+      }
+      else {
+        console.log('User login failed');
+      }
+    });
   }
 }
 

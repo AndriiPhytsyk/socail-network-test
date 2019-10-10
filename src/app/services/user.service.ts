@@ -4,47 +4,73 @@ import {HttpClient} from '@angular/common/http';
 import {GLOBAL} from './global';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map, tap} from 'rxjs/operators';
+import {UserInfo} from '../modules/shared/models/userInfo';
+
+interface Users {
+     users: UserInfo[];
+     total: number;
+}
 
 @Injectable({providedIn: 'root'})
 export class UserService {
+
   constructor(private http: HttpClient) {
   }
 
-  $users = new BehaviorSubject({});
+  users: {users: [], total: null};
 
-  getAllUsers(page: number, limit: number = 10  ) {
-    return this.http.get(`http://${GLOBAL.url}/users?page=${page}&limit=${limit}`);
+  $users = new BehaviorSubject<Users>(this.users);
+
+  getAllUsers(page: number, limit: number = 10): Observable<any> {
+    return this.http.get<any>(`http://${GLOBAL.url}/users?page=${page}&limit=${limit}`);
   }
 
-  deleteUser() {
-    return this.http.delete(`http://${GLOBAL.url}/users/me`);
+  deleteUser(): Observable<string> {
+    return this.http.delete<any>(`http://${GLOBAL.url}/users/me`)
+      .pipe(map(res => {
+        return res.success;
+      }));
   }
 
-  getUserById(id) {
-    return this.http.get(`http://${GLOBAL.url}/users/${id}`);
+  getUserById(id): Observable<UserInfo> {
+    return this.http.get<any>(`http://${GLOBAL.url}/users/${id}`);
   }
 
   register(user: any): Observable<any> {
-    return this.http.post(`http://${GLOBAL.url}/auth/signup`, user);
+    return this.http.post<any>(`http://${GLOBAL.url}/auth/signup`, user);
   }
 
   editUserInfo(userInfo) {
-    return this.http.put(`http://${GLOBAL.url}/users/me`, userInfo);
+    return this.http.put<any>(`http://${GLOBAL.url}/users/me`, userInfo);
   }
 
   uploadPhoto(image) {
-    return this.http.put(`http://${GLOBAL.url}/users/updatePhoto`, image);
+    return this.http.put<any>(`http://${GLOBAL.url}/users/updatePhoto`, image);
   }
 
-  getUsersMe() {
-    return this.http.get(`http://${GLOBAL.url}/users/me`);
+  getUsersMe(): Observable<UserInfo> {
+    return this.http.get<any>(`http://${GLOBAL.url}/users/me`)
+      .pipe(map(result => {
+          return result.user;
+        }),
+        tap(userInfo => {
+          return userInfo;
+        })
+      );
   }
 
   searchUserByWord(searchWord = '', page = 1, limit = 10) {
-    return this.http.get(`http://${GLOBAL.url}/search?search=${searchWord}&limit=${limit}&page=${page}`)
-      .pipe(tap(users => {
-        this.$users.next(users);
-      }));
+    return this.http.get<any>(`http://${GLOBAL.url}/search?search=${searchWord}&limit=${limit}&page=${page}`)
+      .pipe(map(result => {
+          return {
+            users: result.users,
+            total: result.total
+          };
+        }),
+        map(users => {
+            this.$users.next(users);
+          }
+        ));
   }
 
 }

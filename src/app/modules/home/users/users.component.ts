@@ -28,17 +28,15 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub1 = this.userService.$users.subscribe(users => {
-      console.log(777,users)
-      this.users = users['users'];
-      this.totalUsersAmount = users['total'];
+      this.users = users.users;
+      this.totalUsersAmount = users.total;
     });
 
     this.sub2 = this.userService.getAllUsers(this._currentPage)
       .subscribe(users => {
-        console.log(888,users)
 
-        this.users = users['users'];
-        this.totalUsersAmount = users['total'];
+        this.users = users.users;
+        this.totalUsersAmount = users.total;
         this.usersLoaded = true;
       });
   }
@@ -60,8 +58,8 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.userService.getAllUsers(
       page, limit
     ).subscribe((response) => {
-      this.users = response['users'];
-      this.totalUsersAmount = response['total'];
+      this.users = response.users;
+      this.totalUsersAmount = response.total;
     }, (error) => console.error(error));
   }
 

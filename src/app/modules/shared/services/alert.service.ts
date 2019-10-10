@@ -31,7 +31,7 @@ export class AlertService {
     return this.subject.asObservable().filter((x: Alert) => x && x.alertId === alertId);
   }
 
-  hideAllert() {
+  hideAlert() {
     setTimeout(() => {
       this.clear();
     }, 2000);
@@ -40,22 +40,22 @@ export class AlertService {
   // convenience methods
   success(message: string) {
     this.alert(new Alert({message, type: AlertType.Success}));
-    this.hideAllert();
+    this.hideAlert();
   }
 
   error(message: string) {
     this.alert(new Alert({message, type: AlertType.Error}));
-    this.hideAllert();
+    this.hideAlert();
   }
 
   info(message: string) {
     this.alert(new Alert({message, type: AlertType.Info}));
-    this.hideAllert();
+    this.hideAlert();
   }
 
   warn(message: string) {
     this.alert(new Alert({message, type: AlertType.Warning}));
-    this.hideAllert();
+    this.hideAlert();
   }
 
   // main alert method

@@ -1,5 +1,5 @@
-<div *ngIf="pagesArray.length && pagesArray.length !==  1 " aria-label="Page navigation" class="mt-2" >
-  <ng-container >
+<div *ngIf="pagesArray.length && pagesArray.length !==  1 " aria-label="Page navigation" class="mt-2">
+  <ng-container>
     <nav aria-label="Page navigation example">
       <ul class="pagination mx-auto">
         <li *ngIf="currentPage !== 1"
@@ -17,7 +17,7 @@
         </li>
         <li *ngIf="currentPage !== pagesArray.length"
             (click)="setPage(currentPage + 1)"
-             class="page-item">
+            class="page-item">
           <a class="page-link">Next</a>
         </li>
       </ul>

@@ -4,6 +4,7 @@ import { GLOBAL } from './global';
 import { Tokens } from '../models/tokens';
 import { Router } from '@angular/router';
 import {map, tap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -67,33 +68,31 @@ export class AuthenticationService {
   logout() {
     this.router.navigate(['/login']);
     this.removeTokens();
-
   }
 
   forgotPassword(email) {
-    return this.http.post(`http://${GLOBAL.url}/auth/forgotPassword`, { email });
+    return this.http.post<any>(`http://${GLOBAL.url}/auth/forgotPassword`, { email });
   }
 
   changePassword(password, token) {
-    return this.http.post(`http://${GLOBAL.url}/auth/resetPassword`, { password, token });
+    return this.http.post<any>(`http://${GLOBAL.url}/auth/resetPassword`, { password, token });
   }
 
-  signInWithFacebook(token: string, id: string) {
-    return this.http.post(`http://${GLOBAL.url}/auth/facebook`, { token, id })
+  signInWithFacebook(token: string, id: string): Observable<boolean> {
+    return this.http.post<any>(`http://${GLOBAL.url}/auth/facebook`, { token, id })
       .pipe(map(res => {
-        if (res && res['tokens']) {
-          this.storeTokens(res['tokens']);
+        if (res && res.tokens) {
+          this.storeTokens(res.tokens);
           return true;
         }
       }));
   }
 
-  signInWithGoogle(token: string, id: string) {
-    debugger
-    return this.http.post(`http://${GLOBAL.url}/auth/google`, { token, id })
+  signInWithGoogle(token: string): Observable<boolean> {
+    return this.http.post<any>(`http://${GLOBAL.url}/auth/google`, { token })
       .pipe(map(res => {
-        if (res && res['tokens']) {
-          this.storeTokens(res['tokens']);
+        if (res && res.tokens) {
+          this.storeTokens(res.tokens);
           return true;
         }
       }));

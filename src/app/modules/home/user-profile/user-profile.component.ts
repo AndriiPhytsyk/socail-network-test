@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../../../services/user.service';
+
 
 @Component({
   selector: 'app-user-profile',
@@ -9,7 +8,7 @@ import {UserService} from '../../../services/user.service';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor(private userService: UserService) {
+  constructor() {
   }
 
   ngOnInit() { }

@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, BehaviorSubject } from 'rxjs';
-import { catchError, filter, take, switchMap, finalize } from 'rxjs/operators';
-import { AuthenticationService } from '../services/authentication.service';
+import {Injectable} from '@angular/core';
+import {HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse} from '@angular/common/http';
+import {Observable, throwError, BehaviorSubject} from 'rxjs';
+import {catchError, filter, take, switchMap, finalize} from 'rxjs/operators';
+import {AuthenticationService} from '../services/authentication.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -33,7 +33,7 @@ export class JwtInterceptor implements HttpInterceptor {
     }
     return request.clone({
       setHeaders: {
-        'Authorization': token
+        Authorization: token
       }
     });
   }

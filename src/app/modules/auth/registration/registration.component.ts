@@ -55,7 +55,8 @@ export class RegistrationComponent implements OnInit {
           });
         },
         error => {
-          if (error == 'Conflict') {
+          console.log(444, error);
+          if (error === 'Conflict') {
             this.forbiddenEmail = true;
           }
         });

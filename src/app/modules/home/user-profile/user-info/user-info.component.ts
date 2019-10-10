@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../../../services/user.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {AlertService} from '../../../shared/services/alert.service';
+import {UserInfo} from '../../../shared/models/userInfo';
 
 @Component({
  selector: 'app-user-info',
@@ -12,7 +13,7 @@ import {AlertService} from '../../../shared/services/alert.service';
 export class UserInfoComponent implements OnInit {
 
  selectedFile = null;
- userInfo = {};
+ userInfo: UserInfo;
  isImageLoaded = false;
 
  constructor(private userService: UserService,
@@ -22,29 +23,28 @@ export class UserInfoComponent implements OnInit {
  ngOnInit() {
    this.route.queryParams
      .subscribe((params: Params) => {
-       if (params['informationEdited']) {
+       if (params.informationEdited) {
          this.alertService.success('Information was successfully edited');
        }
      });
 
    this.userService.getUsersMe()
-     .subscribe(result => {
-       console.log(result)
-       this.userInfo = result['user'];
+     .subscribe(userInfo => {
+       this.userInfo = userInfo;
    });
  }
 
   fileChangeEvent(event: any): void {
-    this.selectedFile = <File>event.target.files[0];
+    this.selectedFile = <File> event.target.files[0];
     if (this.selectedFile.name.match(/.(jpg|jpeg|png)$/i)) {
       this.isImageLoaded = true;
-      this.selectedFile = <File>event.target.files[0];
+      this.selectedFile = <File> event.target.files[0];
 
       const reader = new FileReader();
 
       reader.readAsDataURL(this.selectedFile);
       reader.onload = (_event) => {
-        this.userInfo['image'] = reader.result;
+        this.userInfo.image = reader.result as string;
       };
     } else {
       // need to change

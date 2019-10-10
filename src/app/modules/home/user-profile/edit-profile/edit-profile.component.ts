@@ -46,7 +46,7 @@ export class EditProfileComponent implements OnInit {
 
     this.userService.editUserInfo(userInfo)
       .subscribe(result => {
-        if (result['success']) {
+        if (result.success) {
           this.userInfo = userInfo;
           this.router.navigate(['/users/me'], {
             queryParams: {

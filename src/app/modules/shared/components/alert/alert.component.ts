@@ -1,53 +1,55 @@
-﻿import { Component, OnInit, Input } from '@angular/core';
+﻿import {Component, OnInit, Input} from '@angular/core';
 import {AlertType, Alert} from '../../models/alert';
 import {AlertService} from '../../services/alert.service';
 
 
 @Component({
-    selector: 'app-alert',
-    templateUrl: 'alert.component.html',
-    styleUrls: ['./alert.component.scss']
+  selector: 'app-alert',
+  templateUrl: 'alert.component.html',
+  styleUrls: ['./alert.component.scss']
 })
 
 export class AlertComponent {
-    @Input() id: string;
 
-    alerts: Alert[] = [];
+  @Input() id: string;
 
-    constructor(private alertService: AlertService) { }
+  alerts: Alert[] = [];
 
-    ngOnInit() {
-        this.alertService.getAlert(this.id).subscribe((alert: Alert) => {
-            if (!alert.message) {
-                // clear alerts when an empty alert is received
-                this.alerts = [];
-                return;
-            }
+  constructor(private alertService: AlertService) {
+  }
 
-            // add alert to array
-            this.alerts.push(alert);
-        });
+  ngOnInit() {
+    this.alertService.getAlert(this.id).subscribe((alert: Alert) => {
+      if (!alert.message) {
+        // clear alerts when an empty alert is received
+        this.alerts = [];
+        return;
+      }
+
+      // add alert to array
+      this.alerts.push(alert);
+    });
+  }
+
+  removeAlert(alert: Alert) {
+    this.alerts = this.alerts.filter(x => x !== alert);
+  }
+
+  cssClass(alert: Alert) {
+    if (!alert) {
+      return;
     }
 
-    removeAlert(alert: Alert) {
-        this.alerts = this.alerts.filter(x => x !== alert);
+    // return css class based on alert type
+    switch (alert.type) {
+      case AlertType.Success:
+        return 'alert alert-success col-sm-2 mx-auto display-top text-center';
+      case AlertType.Error:
+        return 'alert alert-danger  col-sm-2 mx-auto display-top text-center';
+      case AlertType.Info:
+        return 'alert alert-info col-sm-2 mx-auto display-top text-center';
+      case AlertType.Warning:
+        return 'alert alert-warning col-sm-2 mx-auto display-top text-center';
     }
-
-    cssClass(alert: Alert) {
-        if (!alert) {
-            return;
-        }
-
-        // return css class based on alert type
-        switch (alert.type) {
-            case AlertType.Success:
-                return 'alert alert-success col-sm-2 mx-auto display-top text-center';
-            case AlertType.Error:
-                return 'alert alert-danger  col-sm-2 mx-auto display-top text-center';
-            case AlertType.Info:
-                return 'alert alert-info col-sm-2 mx-auto display-top text-center';
-            case AlertType.Warning:
-                return 'alert alert-warning col-sm-2 mx-auto display-top text-center';
-        }
-    }
+  }
 }

@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import {Routes, RouterModule, CanActivate} from '@angular/router';
 
-import {Injectable} from "@angular/compiler/src/core";
-import {AuthGuard} from "../../guards/auth.guard";
 import {HomeComponent} from './home.component';
 import {UserComponent} from './users/user/user.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';

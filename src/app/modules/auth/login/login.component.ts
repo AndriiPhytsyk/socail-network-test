@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.socialAuthService.authState.subscribe((user) => {
+      console.log('user', user)
       this.user = user;
       this.loggedIn = (user != null);
     });
@@ -49,9 +50,9 @@ export class LoginComponent implements OnInit {
     this.message = new InfoMessage('danger', '')
     this.route.queryParams
       .subscribe((params: Params) => {
-        if (params['nowCanLogin']) {
+        if (params.nowCanLogin) {
           this.showMessage('Введіть Ваш логін і пароль', 'success');
-        } else if ((params['passwordChanged'])) {
+        } else if ((params.passwordChanged)) {
           this.showMessage('Пароль було успішно змінено', 'success');
         }
       });
@@ -100,17 +101,19 @@ export class LoginComponent implements OnInit {
   signInWithGoogle(): void {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
       .then(res => {
-        this.authenticationService.signInWithGoogle(res.authToken, res.id);
-      })
+        return this.authenticationService.signInWithGoogle(res.authToken)
+          .subscribe(response => {
+            this.router.navigate(['./users/me']);
+          });
+      });
   }
 
   signInWithFB(): void {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID)
       .then(res => {
-        debugger
         this.authenticationService.signInWithFacebook(res.authToken, res.id)
           .subscribe(response => {
-            // this.router.navigate(['/users/me']);
+            this.router.navigate(['/users/me']);
           });
       });
   }

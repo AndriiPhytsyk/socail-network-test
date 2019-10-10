@@ -12,23 +12,21 @@ export class RestorePasswordComponent implements OnInit {
 
   constructor(private authService: AuthenticationService, private alertService: AlertService) { }
 
-  passwordResetEmail: string;
-
   ngOnInit() {
   }
 
   onSubmit(form: NgForm) {
 
-    if(form.invalid) {
+    if (form.invalid) {
       return;
     }
 
     const {passwordResetEmail} = form.value;
     this.authService.forgotPassword(passwordResetEmail).subscribe(result => {
-      if (result['success']) {
+      if (result.success) {
         this.alertService.success('Check your email');
       }
-    })
+    });
   }
 
 }

@@ -30,7 +30,7 @@ export class HomeComponent  {
           this.userService.deleteUser()
             .subscribe(result => {
             console.log('result',result)
-            if (result['success']) {
+            if (result) {
               this.router.navigate(['/login']);
             }
           });

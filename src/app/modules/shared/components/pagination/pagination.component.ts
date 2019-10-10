@@ -12,7 +12,8 @@ export interface MyPagination {
 export class PaginationComponent {
 
   public pagesArray: Array<number> = [];
-  public currentPage: number = 1;
+  public currentPage = 1;
+
   @Output() goToPage = new EventEmitter<number>()
 
   @Input() set setPagination(pagination: MyPagination) {
@@ -26,8 +27,9 @@ export class PaginationComponent {
   }
 
   public setPage(pageNumber: number): void {
-    if (pageNumber === this.currentPage)
+    if (pageNumber === this.currentPage) {
       return;
+    }
     this.currentPage = pageNumber;
     this.goToPage.emit(pageNumber);
   }

@@ -1,39 +1,42 @@
-<h5 class="mb-5 text-center">{{userInfo?.name +" "+ userInfo?.lastname}}</h5>
-<div class="row">
-  <div class="col-6 text-center" >
-    <div class="avatar-container">
-      <img [src]="userInfo['image']" class="mx-auto img-fluid img-circle d-block" alt="avatar">
-    </div>
-    <h6 class="mt-2">Upload a different photo</h6>
-    <label class="custom-file"  *ngIf="!isImageLoaded">
-      <input type="file" id="file" class="custom-file-input " (change)="fileChangeEvent($event)">
-      <span class="custom-file-control">Choose file</span>
-    </label>
+<div  *ngIf="isUserInfoLoaded">
+  <h5 class="mb-5 text-center">{{userInfo?.name +" "+ userInfo?.lastname}}</h5>
+  <div class="row">
+    <div class="col-6 text-center" >
+      <div class="avatar-container">
+        <img [src]="userInfo['image']" class="mx-auto img-fluid img-circle d-block" alt="avatar">
+      </div>
+      <h6 class="mt-2">Upload a different photo</h6>
+      <label class="custom-file"  *ngIf="!isImageLoaded">
+        <input type="file" id="file" class="custom-file-input " (change)="fileChangeEvent($event)">
+        <span class="custom-file-control">Choose file</span>
+      </label>
       <button *ngIf="isImageLoaded" type="button" class="btn btn-primary" (click)="uploadImage($event)">Upload image</button>
-  </div>
-  <div class="col-6">
-    <h6>{{'Про себе' | translate}}</h6>
-    <p>
-      {{userInfoForm?.description}}
-    </p>
-    <h6>{{'Електронна пошта' | translate}}</h6>
-    <p>
-      {{userInfo?.email}}
-    </p>
-    <h6>{{'Країна' | translate}}</h6>
-    <p>
-      {{userInfo?.country}}
-    </p>
-    <h6>{{'Місто' | translate}}</h6>
-    <p>
-      {{userInfo?.city}}
-    </p>
-    <h6>{{'Вік' | translate}}</h6>
-    <p>
-      {{userInfo?.age}}
-    </p>
+    </div>
+    <div class="col-6">
+      <h6>{{'Про себе' | translate}}</h6>
+      <p>
+        {{userInfoForm?.description}}
+      </p>
+      <h6>{{'Електронна пошта' | translate}}</h6>
+      <p>
+        {{userInfo?.email}}
+      </p>
+      <h6>{{'Країна' | translate}}</h6>
+      <p>
+        {{userInfo?.country}}
+      </p>
+      <h6>{{'Місто' | translate}}</h6>
+      <p>
+        {{userInfo?.city}}
+      </p>
+      <h6>{{'Вік' | translate}}</h6>
+      <p>
+        {{userInfo?.age}}
+      </p>
+    </div>
   </div>
 </div>
+
 
 
 

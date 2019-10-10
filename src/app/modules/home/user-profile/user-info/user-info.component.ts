@@ -14,6 +14,7 @@ export class UserInfoComponent implements OnInit {
 
  selectedFile = null;
  userInfo: UserInfo;
+ isUserInfoLoaded = false;
  isImageLoaded = false;
 
  constructor(private userService: UserService,
@@ -30,7 +31,9 @@ export class UserInfoComponent implements OnInit {
 
    this.userService.getUsersMe()
      .subscribe(userInfo => {
+       console.log('userInfo', userInfo)
        this.userInfo = userInfo;
+       this.isUserInfoLoaded = true;
    });
  }
 
@@ -47,7 +50,6 @@ export class UserInfoComponent implements OnInit {
         this.userInfo.image = reader.result as string;
       };
     } else {
-      // need to change
       this.alertService.warn('Please select an image');
     }
   }
@@ -56,9 +58,7 @@ export class UserInfoComponent implements OnInit {
     const fd = new FormData();
     fd.append('image', this.selectedFile, this.selectedFile.name);
     this.userService.uploadPhoto(fd)
-      .subscribe(result => {
-        this.isImageLoaded = false;
-      });
+      .subscribe();
   }
 
 }

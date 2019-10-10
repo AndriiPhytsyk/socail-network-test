@@ -21,7 +21,7 @@ export class ResetPasswordComponent implements OnInit {
 
   onSubmit(form) {
     const {newPassword} = form.value;
-    this.authService.changePassword(newPassword, this.token).subscribe(result=>{
+    this.authService.changePassword(newPassword, this.token).subscribe(result => {
       if (result.success) {
         this.router.navigate(['/login'], {
           queryParams: {

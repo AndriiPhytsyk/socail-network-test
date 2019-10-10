@@ -26,8 +26,7 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit() {
 
-    this.userService.getUsersMe().subscribe(result => this.userInfo = result['user']);
-
+    this.userService.getUsersMe().subscribe(userInfo => this.userInfo = userInfo);
     this.userInfoForm = this.formBuilder.group({
       name: new FormControl(null, [Validators.required]),
       lastname: new FormControl(null, [Validators.required]),

@@ -10,6 +10,7 @@ import {SharedModule} from '../shared/shared.module';
 import { RestorePasswordComponent } from './forgot-password/restore-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import {AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, SocialLoginModule} from 'angularx-social-login';
+import {AuthComponent} from './auth.component';
 
 const config = new AuthServiceConfig([
   {
@@ -31,7 +32,8 @@ export function provideConfig() {
     LoginComponent,
     RegistrationComponent,
     RestorePasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    AuthComponent
   ],
   imports: [
     CommonModule,
@@ -41,6 +43,7 @@ export function provideConfig() {
     ReactiveFormsModule,
     SharedModule,
     SocialLoginModule
+
   ],
   providers: [{
     provide: AuthServiceConfig,

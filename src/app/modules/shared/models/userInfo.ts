@@ -4,6 +4,7 @@ export class UserInfo implements IUserInfo {
   public lastname?: string,
   public city?: string,
   public country?: string,
+  public email?: string,
   public age?: number,
   public description?: string,
   public image?: string

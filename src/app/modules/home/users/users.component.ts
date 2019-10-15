@@ -18,7 +18,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   private _currentSearchValue: string = '';
   private _limitUsers: number = 10;
 
-  private usersLoaded: boolean = false;
+  public isUsersLoaded: boolean = false;
 
   sub1: Subscription;
   sub2: Subscription;
@@ -41,7 +41,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       .subscribe(users => {
         this.users = users.users;
         this.totalUsersAmount = users.total;
-        this.usersLoaded = true;
+        this.isUsersLoaded = true;
       });
   }
 

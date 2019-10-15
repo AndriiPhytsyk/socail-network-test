@@ -54,7 +54,7 @@ export class UserInfoComponent implements OnInit {
     }
   }
 
-  uploadImage() {
+  uploadImage(event) {
     const fd = new FormData();
     fd.append('image', this.selectedFile, this.selectedFile.name);
     this.userService.uploadPhoto(fd)

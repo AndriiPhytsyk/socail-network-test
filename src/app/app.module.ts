@@ -18,6 +18,10 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {AlertComponent} from './modules/shared/components/alert';
 import {AlertService} from './modules/shared/services/alert.service';
+import {HttpModule} from '@angular/http';
+import { ShareButtonModule } from '@ngx-share/button';
+import {PostsService} from './services/posts.service';
+
 
 
 // AoT requires an exported function for factories
@@ -45,6 +49,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     NgbModule,
     AngularFontAwesomeModule,
+    ShareButtonModule,
+    HttpModule,
     // SharedModule,
 
     TranslateModule.forRoot({
@@ -59,7 +65,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    AlertService
+    AlertService,
+    PostsService
     ],
 
 

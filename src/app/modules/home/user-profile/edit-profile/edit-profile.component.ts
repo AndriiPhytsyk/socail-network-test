@@ -26,7 +26,10 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit() {
 
-    this.userService.getUsersMe().subscribe(userInfo => this.userInfo = userInfo);
+    this.userService.getUsersMe().subscribe(userInfo => {
+      this.userInfo = userInfo;
+      console.log(31, userInfo);
+    });
     this.userInfoForm = this.formBuilder.group({
       name: new FormControl(null, [Validators.required]),
       lastname: new FormControl(null, [Validators.required]),
@@ -39,10 +42,8 @@ export class EditProfileComponent implements OnInit {
 
   onSubmit() {
     let {name, lastname, city, country, age, description} = this.userInfoForm.value;
-    age = +age;
-    console.log(987, typeof age)
+    age = Number(age);
     const userInfo = new UserInfo(name, lastname, city, country, age, description);
-
     this.userService.editUserInfo(userInfo)
       .subscribe(result => {
         if (result.success) {

@@ -1,0 +1,37 @@
+<div class="row m-0">
+
+  <!-- Post Content Column -->
+  <div class="col-lg-12">
+
+    <!-- Title -->
+    <h1 class="mt-4 text-center">{{post.title}}</h1>
+
+    <!-- Author -->
+    <div class="row justify-content-between">
+      <p class="lead mx-auto">
+        by
+        <a href="#">Name</a>
+      </p>
+    </div>
+
+    <hr>
+    <!-- Date/Time -->
+    <p>Posted on January 1, 2019 at 12:00 PM</p>
+
+    <hr>
+
+    <!-- Preview Image -->
+    <img class="img-fluid rounded" style="height: 200px" [src]="post.image" alt="">
+
+    <hr>
+
+    <!-- Post Content -->
+    <p class="lead">{{post.description}}</p>
+
+    <hr>
+
+    <share-button  button="facebook" [icon]="fbIcon" ></share-button>
+    <hr>
+
+  </div>
+</div>

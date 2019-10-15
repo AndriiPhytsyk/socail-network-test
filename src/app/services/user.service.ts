@@ -42,6 +42,7 @@ export class UserService {
   }
 
   editUserInfo(userInfo) {
+    debugger;
     return this.http.put<any>(`http://${GLOBAL.url}/users/me`, userInfo);
   }
 

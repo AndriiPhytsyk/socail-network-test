@@ -10,6 +10,8 @@ import {ImageCropperModule} from 'ngx-image-cropper';
 import {ConfirmationDialogComponent} from './components/confirmation-dialog/confirmation-dialog.component';
 import {ConfirmationDialogService} from './services/confirmation-dialog.service';
 import {PaginationComponent} from './components/pagination/pagination.component';
+// import {ShareButtonModule} from '@ngx-share/button';
+// import {BrowserModule} from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -27,11 +29,13 @@ import {PaginationComponent} from './components/pagination/pagination.component'
     FormsModule,
     AngularFontAwesomeModule,
     ImageCropperModule,
-    PaginationComponent
+    PaginationComponent,
+
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
 
   ],
 

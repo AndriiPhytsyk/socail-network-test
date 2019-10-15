@@ -43,7 +43,6 @@ export function provideConfig() {
     ReactiveFormsModule,
     SharedModule,
     SocialLoginModule
-
   ],
   providers: [{
     provide: AuthServiceConfig,

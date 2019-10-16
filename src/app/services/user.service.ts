@@ -42,21 +42,23 @@ export class UserService {
   }
 
   editUserInfo(userInfo) {
-    debugger;
     return this.http.put<any>(`http://${GLOBAL.url}/users/me`, userInfo);
   }
 
   uploadPhoto(image) {
+    console.log('image', image)
     return this.http.put<any>(`http://${GLOBAL.url}/users/updatePhoto`, image);
   }
 
-  getUsersMe(): Observable<UserInfo> {
+  getUsersMe(): Observable<any> {
     return this.http.get<any>(`http://${GLOBAL.url}/users/me`)
       .pipe(map(result => {
-          return result.user;
-        }),
-        tap(userInfo => {
-          return userInfo;
+          console.log(888, result)
+          return {
+            user: result.user,
+            posts: result.posts,
+            offsetPosts: result.offsetPosts
+          };
         })
       );
   }

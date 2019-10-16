@@ -21,6 +21,8 @@ import {AlertService} from './modules/shared/services/alert.service';
 import {HttpModule} from '@angular/http';
 import { ShareButtonModule } from '@ngx-share/button';
 import {PostsService} from './services/posts.service';
+import {SharedModule} from './modules/shared/shared.module';
+import {CommonModule} from '@angular/common';
 
 
 
@@ -38,6 +40,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
@@ -51,7 +54,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFontAwesomeModule,
     ShareButtonModule,
     HttpModule,
-    // SharedModule,
+    SharedModule,
 
     TranslateModule.forRoot({
       loader: {

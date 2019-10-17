@@ -23,6 +23,7 @@ import { ShareButtonModule } from '@ngx-share/button';
 import {PostsService} from './services/posts.service';
 import {SharedModule} from './modules/shared/shared.module';
 import {CommonModule} from '@angular/common';
+import {CommentsService} from './services/comments.service';
 
 
 
@@ -69,7 +70,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     AlertService,
-    PostsService
+    PostsService,
+    CommentsService
     ],
 
 

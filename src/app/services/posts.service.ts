@@ -22,12 +22,12 @@ export class PostsService {
 
 
   deletePost(id) {
-    return this.http.delete(`http://${GLOBAL.url}/users/me/post/${id}`);
+    return this.http.delete<any>(`http://${GLOBAL.url}/users/me/post/${id}`);
   }
 
-  // getPostById(id) {
-  //   debugger
-  //   return this.posts.find(post => post.id === +id);
-  // }
+
+  addComment(postId, fd?) {
+    return this.http.post<any>(`http://${GLOBAL.url}/post/${postId}/comment`, fd);
+  }
 
 }

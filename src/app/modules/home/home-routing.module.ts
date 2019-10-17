@@ -9,6 +9,7 @@ import {UserInfoComponent} from './user-profile/user-info/user-info.component';
 import {UserPostsComponent} from './user-profile/user-posts/user-posts.component';
 import {ModalContainerComponent} from './user-profile/user-posts/post/modal-container-routable-modals';
 import {PostEditComponent} from './user-profile/user-posts/post/post-edit/post-edit.component';
+import {PostDetailComponent} from './user-profile/user-posts/post/post-detail/post-detail.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
       {path: 'users/me/edit', component: EditProfileComponent},
       {path: 'users/me/messages', component: UserMessagesComponent},
       {path: 'users/me/posts/edit/:id', component: PostEditComponent},
+      {path: 'users/me/posts/detail/:id', component: PostDetailComponent},
       {path: 'users/me/posts/:id', component: ModalContainerComponent},
       {path: 'users/me/posts', component: UserPostsComponent},
       {path: 'users/me', component: UserInfoComponent},

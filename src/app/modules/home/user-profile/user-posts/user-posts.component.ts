@@ -22,6 +22,7 @@ export class UserPostsComponent implements OnInit {
   @ViewChild('addPost', {static: false}) addPost;
 
   posts = [];
+  userImage: string;
   postText = '';
   fileData: File = null;
   previewUrl: any = null;
@@ -37,7 +38,6 @@ export class UserPostsComponent implements OnInit {
     this.userService.getUsersMe()
       .subscribe(res => {
         this.posts = res.posts;
-        console.log(' this.posts', this.posts);
       });
   }
 
@@ -73,7 +73,6 @@ export class UserPostsComponent implements OnInit {
     formData.append('text', this.postText);
     this.postService.createPost(formData)
       .subscribe(res => {
-        console.log('ttt',res);
         // this.uploadedFilePath = res.data.filePath;
         this.posts.unshift(res.post);
         console.log(123, this.posts);
@@ -81,7 +80,7 @@ export class UserPostsComponent implements OnInit {
   }
 
   postDeleted(id) {
-    const index = this.posts.findIndex(item => item.id === id);
+    const index = this.posts.findIndex(item => item.id === id)
     this.posts.splice(index, 1);
   }
 }

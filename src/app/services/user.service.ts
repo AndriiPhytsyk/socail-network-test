@@ -42,6 +42,7 @@ export class UserService {
   }
 
   editUserInfo(userInfo) {
+    console.log(typeof userInfo.age)
     return this.http.put<any>(`http://${GLOBAL.url}/users/me`, userInfo);
   }
 

@@ -32,7 +32,6 @@ export class UsersComponent implements OnInit, OnDestroy {
         this.users = result.users;
         this.totalUsersAmount = result.total;
         console.log(666, result);
-
       }
 
     });

@@ -1,7 +1,11 @@
 <button class="btn btn-success mb-4" (click)="openModal()">Add Post</button>
 <app-post
-  (onPostDeleted) = "postDeleted($event)"
   *ngFor = "let post of posts"
+  (onPostDeleted) = "postDeleted($event)"
+  [image]="post.images[0]"
+  [text] = "post.text"
+  [id] = "post.id"
+  [comments] = "post.comments"
 
 >
 </app-post>

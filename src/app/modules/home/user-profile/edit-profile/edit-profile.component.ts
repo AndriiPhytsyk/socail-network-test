@@ -27,7 +27,7 @@ export class EditProfileComponent implements OnInit {
   ngOnInit() {
 
     this.userService.getUsersMe().subscribe(userInfo => {
-      this.userInfo = userInfo;
+      this.userInfo = userInfo.user;
       console.log(31, userInfo);
     });
     this.userInfoForm = this.formBuilder.group({
@@ -42,10 +42,11 @@ export class EditProfileComponent implements OnInit {
 
   onSubmit() {
     let {name, lastname, city, country, age, description} = this.userInfoForm.value;
-    age = Number(age);
+    age = +age;
     const userInfo = new UserInfo(name, lastname, city, country, age, description);
     this.userService.editUserInfo(userInfo)
       .subscribe(result => {
+        console.log(49, result)
         if (result.success) {
           this.userInfo = userInfo;
           this.router.navigate(['/users/me'], {

@@ -11,23 +11,30 @@
       </div>
     </div>
     <!-- Preview Image -->
-    <img class="img-fluid rounded" style="height: 200px;" src="{{image}}" alt="">
-
+    <img [routerLink]="['/users/me/posts/detail/', id]" style="cursor: pointer" class="img" src="{{image}}" alt="">
     {{image}}
     <!-- Post Content -->
     <p class="lead my-2">{{text}}</p>
-
     <div *ngFor="let comment of comments">
-      <p class="comment">
-        {{comment}}
+      <p *ngIf="comment.files">
+        <img  style="height: 100px" [src]="comment.files[0]" alt="">
+      </p>
+      <p class="comment my-1">
+        {{comment.text}}
+      </p>
+      <p style="cursor: pointer; color: blue" (click)="showSubCommentInput()">
+        <small>reply</small>
       </p>
       <ng-container *ngIf="replyCommentInput">
         <div class="col-sm-12">
-          <input class="form-control my-3" type="text"  #subComment (keyup.enter)="addSubComment(subComment.value)">
+          <input class="form-control my-3" type="text" #subComment
+                 (keyup.enter)="addSubComment(subComment.value, comment._id)">
         </div>
       </ng-container>
-
-      <p style="cursor: pointer; color: blue" (click)="showSubCommentInput()"><small>reply</small></p>
+      <p *ngFor="let response of comment.responses" class="comment my-1 ml-3">
+        {{response.text}}
+      </p>
+      <hr>
     </div>
     <div class="row">
       <button mat-button (click)="showCommentInput()">Comment</button>
@@ -36,11 +43,18 @@
         <span>Share</span>
       </button>
       <ng-container *ngIf="showedCommentInput">
+        <div class="col-sm-12">
+          <input class="form-control my-3" type="text" #comment (keyup.enter)="addComment(comment.value)">
+        </div>
+        <div class="row">
           <div class="col-sm-12">
-            <input class="form-control my-3" type="text"  #comment (keyup.enter)="addComment(comment.value)">
+            <input type='file' (change)="onSelectFile($event)">
           </div>
+          <div class="col-sm-12 my-2">
+            <img [src]="url" height="100" *ngIf="url">
+          </div>
+        </div>
       </ng-container>
-
     </div>
   </div>
 </div>

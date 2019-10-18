@@ -80,7 +80,7 @@ export class UserPostsComponent implements OnInit {
   }
 
   postDeleted(id) {
-    const index = this.posts.findIndex(item => item.id === id)
+    const index = this.posts.findIndex(item => item.id === id);
     this.posts.splice(index, 1);
   }
 }

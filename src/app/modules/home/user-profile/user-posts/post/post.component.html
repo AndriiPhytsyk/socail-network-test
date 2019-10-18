@@ -17,7 +17,7 @@
     <p class="lead my-2">{{text}}</p>
     <div *ngFor="let comment of comments">
       <p *ngIf="comment.files">
-        <img  style="height: 100px" [src]="comment.files[0]" alt="">
+        <img class="comment-image" [src]="comment.files[0]" alt="">
       </p>
       <p class="comment my-1">
         {{comment.text}}
@@ -27,8 +27,14 @@
       </p>
       <ng-container *ngIf="replyCommentInput">
         <div class="col-sm-12">
-          <input class="form-control my-3" type="text" #subComment
-                 (keyup.enter)="addSubComment(subComment.value, comment._id)">
+          <span class="counter mt-3 d-block text-right">{{subComment.length}}/50</span>
+          <input
+            class="form-control my-3"
+            type="text"
+            [(ngModel)]="subComment"
+            (keyup.enter)="addSubComment(comment._id)"
+            maxlength="50"
+          >
         </div>
       </ng-container>
       <p *ngFor="let response of comment.responses" class="comment my-1 ml-3">
@@ -44,7 +50,14 @@
       </button>
       <ng-container *ngIf="showedCommentInput">
         <div class="col-sm-12">
-          <input class="form-control my-3" type="text" #comment (keyup.enter)="addComment(comment.value)">
+          <span class="counter mt-3 d-block text-right">{{comment.length}}/50</span>
+          <input
+            class="form-control mb-2"
+            type="text"
+            [(ngModel)]="comment"
+            (keyup.enter)="addComment()"
+            maxlength="50"
+          >
         </div>
         <div class="row">
           <div class="col-sm-12">

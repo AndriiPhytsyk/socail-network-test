@@ -25,6 +25,11 @@ export class PostComponent implements OnInit {
 
   selectedFile = null;
 
+  comment: string = '';
+  subComment: string = '';
+
+  forbiddenWord = 'developer';
+
   // @ViewChild() addPost;
 
   constructor(
@@ -63,31 +68,37 @@ export class PostComponent implements OnInit {
     this.replyCommentInput = !this.replyCommentInput;
   }
 
-  addComment(comment) {
+  addComment() {
+    if (this.comment.includes(this.forbiddenWord)) {
+      this.comment = this.comment.replace(/developer/, '***');
+    }
     if (this.selectedFile) {
       const fd = new FormData();
       fd.append('image', this.selectedFile);
-      fd.append('text', comment);
+      fd.append('text', this.comment);
       this.postsService.addComment(this.id, fd)
         .subscribe(res => {
           this.comments.push(res.comment);
           this.showedCommentInput = false;
+          this.comment = '';
         });
     } else {
-      this.postsService.addComment(this.id, {text: comment})
+      this.postsService.addComment(this.id, {text: this.comment})
         .subscribe(res => {
           this.comments.push(res.comment);
           this.showedCommentInput = false;
+          this.comment = '';
         });
     }
   }
 
-  addSubComment(subComment, commentId) {
-    this.commentsService.replyToComment(subComment, commentId)
+  addSubComment(commentId) {
+    this.commentsService.replyToComment(this.subComment, commentId)
       .subscribe(res => {
         const index = this.comments.findIndex(comment => comment._id === commentId);
-        this.comments[index].responses.unshift({text: subComment});
+        this.comments[index].responses.unshift({text: this.subComment});
         this.replyCommentInput = false;
+        this.subComment = '';
       });
   }
 
@@ -103,4 +114,13 @@ export class PostComponent implements OnInit {
       };
     }
   }
+
+  show(id) {
+    for (let i = 0; i <= this.comments.length; i++) {
+      console.log(111, this.comments[i]._id === id);
+      return this.comments[i]._id === id;
+    }
+  }
+
+
 }

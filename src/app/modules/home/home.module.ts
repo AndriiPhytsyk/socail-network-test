@@ -22,6 +22,7 @@ import {ModalContainerComponent} from './user-profile/user-posts/post/modal-cont
 import {PostPreviewComponent} from './user-profile/user-posts/post/post-preview/post-preview.component';
 import { PostEditComponent } from './user-profile/user-posts/post/post-edit/post-edit.component';
 import {PostDetailComponent} from './user-profile/user-posts/post/post-detail/post-detail.component';
+import { PostCommentsComponent } from './user-profile/user-posts/post/post-comments/post-comments.component';
 
 
 
@@ -39,7 +40,8 @@ import {PostDetailComponent} from './user-profile/user-posts/post/post-detail/po
     ModalContainerComponent,
     PostPreviewComponent,
     PostEditComponent,
-    PostDetailComponent
+    PostDetailComponent,
+    PostCommentsComponent
 
   ],
 

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {UserService} from '../../../../../services/user.service';
 import {PostsService} from '../../../../../services/posts.service';
 import {ConfirmationDialogService} from '../../../../shared/services/confirmation-dialog.service';
@@ -10,7 +10,7 @@ import {CommentsService} from '../../../../../services/comments.service';
   styleUrls: ['post.component.scss']
 })
 
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit, AfterViewInit {
 
   @Input() text: string;
   @Input() image: string;
@@ -18,19 +18,11 @@ export class PostComponent implements OnInit {
   @Input() comments: any;
   @Output() onPostDeleted = new EventEmitter();
 
-  public imagePath;
-  url: string;
+  postComment: string;
   showedCommentInput = false;
-  replyCommentInput = false;
-
   selectedFile = null;
-
-  comment: string = '';
-  subComment: string = '';
-
   forbiddenWord = 'developer';
 
-  // @ViewChild() addPost;
 
   constructor(
     private userService: UserService,
@@ -41,8 +33,11 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUsersMe()
-      .subscribe(res => console.log(37, res));
+
+  }
+
+  ngAfterViewInit() {
+    console.log(36, this.comments);
   }
 
   deletePost(id) {
@@ -61,64 +56,29 @@ export class PostComponent implements OnInit {
 
   showCommentInput() {
     this.showedCommentInput = !this.showedCommentInput;
-
-  }
-
-  showSubCommentInput() {
-    this.replyCommentInput = !this.replyCommentInput;
   }
 
   addComment() {
-    if (this.comment.includes(this.forbiddenWord)) {
-      this.comment = this.comment.replace(/developer/, '***');
+    if (this.postComment.includes(this.forbiddenWord)) {
+      this.postComment = this.postComment.replace(/developer/, '***');
     }
     if (this.selectedFile) {
       const fd = new FormData();
       fd.append('image', this.selectedFile);
-      fd.append('text', this.comment);
+      fd.append('text', this.postComment);
       this.postsService.addComment(this.id, fd)
         .subscribe(res => {
           this.comments.push(res.comment);
           this.showedCommentInput = false;
-          this.comment = '';
+          this.postComment = '';
         });
     } else {
-      this.postsService.addComment(this.id, {text: this.comment})
+      this.postsService.addComment(this.id, {text: this.postComment})
         .subscribe(res => {
           this.comments.push(res.comment);
           this.showedCommentInput = false;
-          this.comment = '';
+          this.postComment = '';
         });
-    }
-  }
-
-  addSubComment(commentId) {
-    this.commentsService.replyToComment(this.subComment, commentId)
-      .subscribe(res => {
-        const index = this.comments.findIndex(comment => comment._id === commentId);
-        this.comments[index].responses.unshift({text: this.subComment});
-        this.replyCommentInput = false;
-        this.subComment = '';
-      });
-  }
-
-
-  onSelectFile(event) { // called each time file input changes
-    if (event.target.files && event.target.files[0]) {
-      this.selectedFile = <File> event.target.files[0];
-      const reader = new FileReader();
-      this.imagePath = event.target.files;
-      reader.readAsDataURL(event.target.files[0]); // read file as data url
-      reader.onload = (event) => { // called once readAsDataURL is completed
-        this.url = reader.result; //add source to image
-      };
-    }
-  }
-
-  show(id) {
-    for (let i = 0; i <= this.comments.length; i++) {
-      console.log(111, this.comments[i]._id === id);
-      return this.comments[i]._id === id;
     }
   }
 

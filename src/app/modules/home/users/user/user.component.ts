@@ -22,7 +22,7 @@ export class UserComponent implements OnInit, OnDestroy {
       this.userService.getUserById(id)
         .subscribe(userInfo => {
           console.log(24, userInfo)
-        this.userInfo = userInfo.user;
+        this.userInfo = userInfo['user'];
         this.isLoaded = true;
       });
     });

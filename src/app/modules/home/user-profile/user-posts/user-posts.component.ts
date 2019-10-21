@@ -26,18 +26,20 @@ export class UserPostsComponent implements OnInit {
   postText = '';
   fileData: File = null;
   previewUrl: any = null;
+  postsLoaded = false;
 
   constructor(
-    private postService: PostsService,
+    private postsService: PostsService,
     private modalService: NgbModal,
     private userService: UserService) {
   }
 
 
   ngOnInit() {
-    this.userService.getUsersMe()
-      .subscribe(res => {
-        this.posts = res.posts;
+    this.postsService.getMyPosts()
+      .subscribe(posts => {
+        console.log(41, posts)
+        this.posts = posts;
       });
   }
 
@@ -71,7 +73,7 @@ export class UserPostsComponent implements OnInit {
     const formData = new FormData();
     formData.append('image', this.fileData);
     formData.append('text', this.postText);
-    this.postService.createPost(formData)
+    this.postsService.createPost(formData)
       .subscribe(res => {
         // this.uploadedFilePath = res.data.filePath;
         this.posts.unshift(res.post);

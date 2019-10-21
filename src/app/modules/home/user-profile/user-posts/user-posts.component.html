@@ -1,17 +1,13 @@
 <button class="btn btn-success mb-4" (click)="openModal()">Add Post</button>
 <app-post
-  *ngFor = "let post of posts"
-  (onPostDeleted) = "postDeleted($event)"
+  *ngFor="let post of posts"
+  (onPostDeleted)="postDeleted($event)"
   [image]="post.images[0]"
-  [text] = "post.text"
-  [id] = "post.id"
-  [comments] = "post.comments"
+  [text]="post.text"
+  [id]="post.id"
+  [comments]="post.comments"
 >
 </app-post>
-
-<!--[text] = "post.text"-->
-<!--[image] = "post.images[0]"-->
-<!--[id] = "post.id"-->
 
 <ng-template #addPost>
   <div class="modal-header">
@@ -25,7 +21,7 @@
       <img [src]="previewUrl || '../../../../../assets/images/default-image.jpg'" class="post-image"/>
     </div>
     <div class="form-group">
-      <input type="file" name="image" (change)="fileProgress($event)" />
+      <input type="file" name="image" (change)="fileProgress($event)"/>
     </div>
     <div class="form-group">
       <label for="postText" class="my-2">Comment your post</label>

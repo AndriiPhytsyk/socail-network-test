@@ -1,41 +1,7 @@
 <div *ngFor="let comment of comments">
-  <p *ngIf="comment.files">
-    <img  style="height: 100px" [src]="comment.files[0]" alt="">
-  </p>
-  <p class="comment my-1">
-    {{comment.text}}
-  </p>
-  <p style="cursor: pointer; color: blue" (click)="showSubCommentInput()">
-    <small>reply</small>
-  </p>
-  <ng-container *ngIf="replyCommentInput">
-    <div class="col-sm-12">
-      <input class="form-control my-3" type="text" #subComment
-             (keyup.enter)="addSubComment(subComment.value, comment._id)">
-    </div>
-  </ng-container>
-  <p *ngFor="let response of comment.responses" class="comment my-1 ml-3">
-    {{response.text}}
-  </p>
-  <hr>
-</div>
-<div class="row">
-  <button mat-button (click)="showCommentInput()">Comment</button>
-  <button mat-button [routerLink]="['/users/me/posts/', id]">
-    <i class="fa fa-share-alt mr-1"></i>
-    <span>Share</span>
-  </button>
-  <ng-container *ngIf="showedCommentInput">
-    <div class="col-sm-12">
-      <input class="form-control my-3" type="text" #comment (keyup.enter)="addComment(comment.value)">
-    </div>
-    <div class="row">
-      <div class="col-sm-12">
-        <input type='file' (change)="onSelectFile($event)">
-      </div>
-      <div class="col-sm-12 my-2">
-        <img [src]="url" height="100" *ngIf="url">
-      </div>
-    </div>
-  </ng-container>
+  <app-post-comment
+    [postComment]="comment"
+    [postId]="postId"
+  >
+  </app-post-comment>
 </div>

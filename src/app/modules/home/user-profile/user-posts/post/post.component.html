@@ -15,33 +15,11 @@
     {{image}}
     <!-- Post Content -->
     <p class="lead my-2">{{text}}</p>
-    <div *ngFor="let comment of comments">
-      <p *ngIf="comment.files">
-        <img class="comment-image" [src]="comment.files[0]" alt="">
-      </p>
-      <p class="comment my-1">
-        {{comment.text}}
-      </p>
-      <p style="cursor: pointer; color: blue" (click)="showSubCommentInput()">
-        <small>reply</small>
-      </p>
-      <ng-container *ngIf="replyCommentInput">
-        <div class="col-sm-12">
-          <span class="counter mt-3 d-block text-right">{{subComment.length}}/50</span>
-          <input
-            class="form-control my-3"
-            type="text"
-            [(ngModel)]="subComment"
-            (keyup.enter)="addSubComment(comment._id)"
-            maxlength="50"
-          >
-        </div>
-      </ng-container>
-      <p *ngFor="let response of comment.responses" class="comment my-1 ml-3">
-        {{response.text}}
-      </p>
-      <hr>
-    </div>
+    <app-post-comments
+      [comments]="comments"
+      [id] = "id"
+    >
+    </app-post-comments>
     <div class="row">
       <button mat-button (click)="showCommentInput()">Comment</button>
       <button mat-button [routerLink]="['/users/me/posts/', id]">
@@ -50,11 +28,11 @@
       </button>
       <ng-container *ngIf="showedCommentInput">
         <div class="col-sm-12">
-          <span class="counter mt-3 d-block text-right">{{comment.length}}/50</span>
+          <span class="counter mt-3 d-block text-right">{{postComment.length}}/50</span>
           <input
             class="form-control mb-2"
             type="text"
-            [(ngModel)]="comment"
+            [(ngModel)]="postComment"
             (keyup.enter)="addComment()"
             maxlength="50"
           >

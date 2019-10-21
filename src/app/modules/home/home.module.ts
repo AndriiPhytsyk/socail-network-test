@@ -23,6 +23,8 @@ import {PostPreviewComponent} from './user-profile/user-posts/post/post-preview/
 import { PostEditComponent } from './user-profile/user-posts/post/post-edit/post-edit.component';
 import {PostDetailComponent} from './user-profile/user-posts/post/post-detail/post-detail.component';
 import { PostCommentsComponent } from './user-profile/user-posts/post/post-comments/post-comments.component';
+import { PostCommentComponent } from './user-profile/user-posts/post/post-comments/post-comment/post-comment.component';
+import {CanDeactivateGuard} from '../../guards/can-deactivate';
 
 
 
@@ -41,7 +43,8 @@ import { PostCommentsComponent } from './user-profile/user-posts/post/post-comme
     PostPreviewComponent,
     PostEditComponent,
     PostDetailComponent,
-    PostCommentsComponent
+    PostCommentsComponent,
+    PostCommentComponent
 
   ],
 
@@ -56,6 +59,7 @@ import { PostCommentsComponent } from './user-profile/user-posts/post/post-comme
     SharedModule,
     TranslateModule
   ],
+  providers: [CanDeactivateGuard ],
   entryComponents: [
     PostPreviewComponent
   ],

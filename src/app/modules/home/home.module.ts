@@ -45,8 +45,7 @@ import {AuthComponent} from '../auth/auth.component';
     PostEditComponent,
     PostDetailComponent,
     PostCommentsComponent,
-    PostCommentComponent,
-    AuthComponent
+    PostCommentComponent
 
   ],
 

@@ -7,7 +7,7 @@
 </ul>
 
 <app-pagination
-  *ngIf="isUsersLoaded"
+  *ngIf="usersLoaded"
   [setPagination]="{
         'itemsCount': totalUsersAmount,
         'pageSize': 10

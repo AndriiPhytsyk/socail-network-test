@@ -24,6 +24,7 @@ import {PostsService} from './services/posts.service';
 import {SharedModule} from './modules/shared/shared.module';
 import {CommonModule} from '@angular/common';
 import {CommentsService} from './services/comments.service';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 
 

@@ -22,8 +22,8 @@ export class PostDetailComponent implements OnInit {
   selectedFile = null;
   forbiddenWord = 'developer';
 
-  showCommentsCount = 3;
-
+  commentsCount: number = 0;
+  isCommentsShown = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -40,6 +40,7 @@ export class PostDetailComponent implements OnInit {
           console.log(23, res);
           this.post = res.post;
           this.isPostLoaded = true;
+          this.commentsCount = res.post.comments.length;
         });
     });
   }
@@ -70,6 +71,7 @@ export class PostDetailComponent implements OnInit {
     } else {
       this.postsService.addComment(this.post.id, {text: this.comment})
         .subscribe(res => {
+          console.log(74, res);
           this.post.comments.push(res.comment);
           this.showedCommentInput = false;
           this.comment = '';
@@ -92,15 +94,19 @@ export class PostDetailComponent implements OnInit {
     return this.comment || this.subComment;
   }
 
-  @HostListener("window:scroll", [])
-  onScroll(): void {
-    if (this.bottomReached()) {
-      // this.elements = [...this.elements, this.count++];
-      this.showCommentsCount += this.showCommentsCount;
-    }
+
+  showComments() {
+    this.isCommentsShown = !this.isCommentsShown;
   }
 
-  bottomReached(): boolean {
-    return (window.innerHeight + window.scrollY) >= document.body.offsetHeight;
+  showCommentsCount() {
+    let subCommentsCount = 0;
+    this.post.comments.forEach(comment => {
+      subCommentsCount += comment.responses.length;
+    });
+
+    return this.post.comments.length + subCommentsCount;
   }
+
+
 }

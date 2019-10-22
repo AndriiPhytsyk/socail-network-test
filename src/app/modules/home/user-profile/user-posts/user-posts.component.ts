@@ -1,10 +1,4 @@
-///<reference path="../../../../../../node_modules/@angular/core/core.d.ts"/>
 import {Component, OnInit, ViewChild} from '@angular/core';
-// import {MatDialog, MatDialogConfig} from '@angular/material';
-// import {faFacebookSquare} from '@fortawesome/free-brands-svg-icons/faFacebookSquare';
-// import {faPinterest} from '@fortawesome/free-brands-svg-icons/faPinterest';
-// import {faTwitterSquare} from '@fortawesome/free-brands-svg-icons/faTwitterSquare';
-// import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {PostsService} from '../../../../services/posts.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {UserService} from '../../../../services/user.service';

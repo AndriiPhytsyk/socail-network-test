@@ -31,6 +31,7 @@ export class ModalContainerComponent implements OnInit, OnDestroy {
 
       this.postsService.getPostById(params.id)
         .subscribe(res => {
+          console.log(66,res)
           this.post = res.post;
           console.log('this.post', this.post);
           this.currentDialog = this.modalService.open(PostPreviewComponent, {centered: true});

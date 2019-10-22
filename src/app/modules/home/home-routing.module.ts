@@ -11,6 +11,7 @@ import {ModalContainerComponent} from './user-profile/user-posts/post/modal-cont
 import {PostEditComponent} from './user-profile/user-posts/post/post-edit/post-edit.component';
 import {PostDetailComponent} from './user-profile/user-posts/post/post-detail/post-detail.component';
 import {CanDeactivateGuard} from '../../guards/can-deactivate';
+import {PostPreviewComponent} from './user-profile/user-posts/post/post-preview/post-preview.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
       {path: 'users/me/messages', component: UserMessagesComponent},
       {path: 'users/me/posts/edit/:id', component: PostEditComponent},
       {path: 'users/me/posts/detail/:id', component: PostDetailComponent, canDeactivate: [CanDeactivateGuard]},
+      {path: 'users/me/posts/preview/:id', component: PostPreviewComponent, canDeactivate: [CanDeactivateGuard]},
       {path: 'users/me/posts/:id', component: ModalContainerComponent},
       {path: 'users/me/posts', component: UserPostsComponent},
       {path: 'users/me', component: UserInfoComponent},

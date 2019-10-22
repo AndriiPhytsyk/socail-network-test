@@ -5,11 +5,11 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {MaterialModule} from './material.module';
-import {AuthModule} from "./modules/auth/auth.module";
-import {FormsModule} from "@angular/forms";
-import {FlexLayoutModule} from "@angular/flex-layout";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {HomeModule} from "./modules/home/home.module";
+import {AuthModule} from './modules/auth/auth.module';
+import {FormsModule} from '@angular/forms';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HomeModule} from './modules/home/home.module';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
@@ -24,14 +24,11 @@ import {PostsService} from './services/posts.service';
 import {SharedModule} from './modules/shared/shared.module';
 import {CommonModule} from '@angular/common';
 import {CommentsService} from './services/comments.service';
-import {ScrollingModule} from '@angular/cdk/scrolling';
-
-
 
 // AoT requires an exported function for factories
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http,'./assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 
@@ -74,8 +71,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     PostsService,
     CommentsService
     ],
-
-
   bootstrap: [AppComponent]
 })
 export class AppModule { }

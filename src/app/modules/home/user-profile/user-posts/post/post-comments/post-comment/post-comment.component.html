@@ -1,0 +1,29 @@
+<p *ngIf="postComment.files">
+  <img class="comment-image" [src]="postComment.files[0]" alt="">
+</p>
+<p class="comment my-1">
+  {{postComment.text}}
+</p>
+<p style="cursor: pointer; color: blue" (click)="showSubCommentInput()">
+  <small>reply</small>
+</p>
+
+<ng-container *ngIf="replyCommentInput">
+  <div class="col-sm-12">
+    <span class="counter mt-3 d-block text-right">{{subComment.length}}/50</span>
+    <input
+      class="form-control my-3"
+      type="text"
+      [(ngModel)]="subComment"
+      (keyup.enter)="addSubComment()"
+      maxlength="50"
+    >
+  </div>
+</ng-container>
+
+<p *ngFor="let response of postComment.responses"
+   class="comment my-1 ml-3">
+  {{response.text}}
+</p>
+<hr>
+

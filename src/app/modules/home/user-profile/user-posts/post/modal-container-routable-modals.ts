@@ -29,18 +29,23 @@ export class ModalContainerComponent implements OnInit, OnDestroy {
 
     this.route.params.pipe(takeUntil(this.destroy)).subscribe(params => {
 
-      this.post = this.postsService.getPostById(params.id);
-      console.log(555, this.post)
-      // When router navigates on this component is takes the params and opens up the photo detail modal
-      this.currentDialog = this.modalService.open(PostPreviewComponent, {centered: true});
-      this.currentDialog.componentInstance.post = this.post;
+      this.postsService.getPostById(params.id)
+        .subscribe(res => {
+          console.log(66,res)
+          this.post = res.post;
+          console.log('this.post', this.post);
+          this.currentDialog = this.modalService.open(PostPreviewComponent, {centered: true});
+          this.currentDialog.componentInstance.post = this.post;
 
-      // Go back to home page after the modal is closed
-      this.currentDialog.result.then(result => {
-        // router.navigateByUrl('/');
-      }, reason => {
-        // router.navigateByUrl('/');
-      });
+          // Go back to home page after the modal is closed
+          this.currentDialog.result.then(result => {
+            // router.navigateByUrl('/');
+          }, reason => {
+            // router.navigateByUrl('/');
+          });
+        });
+      // When router navigates on this component is takes the params and opens up the photo detail modal
+
     });
   }
 

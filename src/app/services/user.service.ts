@@ -3,8 +3,9 @@ import {HttpClient} from '@angular/common/http';
 
 import {GLOBAL} from './global';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {map, tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {UserInfo} from '../modules/shared/models/userInfo';
+import {Post} from '../interfaces/post/post';
 
 interface Users {
   users: UserInfo[];
@@ -20,7 +21,8 @@ export class UserService {
 
   users: { users: [], total: null };
 
-  $users = new BehaviorSubject<Users | undefined>(this.users)
+  $users = new BehaviorSubject<Users | undefined>(this.users);
+  $posts = new BehaviorSubject<Post | undefined>(null);
 
   getAllUsers(page: number, limit: number = 10): Observable<any> {
     return this.http.get<any>(`http://${GLOBAL.url}/users?page=${page}&limit=${limit}`);
@@ -42,21 +44,24 @@ export class UserService {
   }
 
   editUserInfo(userInfo) {
-    debugger;
+    console.log(typeof userInfo.age)
     return this.http.put<any>(`http://${GLOBAL.url}/users/me`, userInfo);
   }
 
   uploadPhoto(image) {
+    console.log('image', image)
     return this.http.put<any>(`http://${GLOBAL.url}/users/updatePhoto`, image);
   }
 
-  getUsersMe(): Observable<UserInfo> {
+  getUsersMe(): Observable<any> {
     return this.http.get<any>(`http://${GLOBAL.url}/users/me`)
       .pipe(map(result => {
-          return result.user;
-        }),
-        tap(userInfo => {
-          return userInfo;
+          this.$posts.next(result.posts)
+          return {
+            user: result.user,
+            posts: result.posts,
+            offsetPosts: result.offsetPosts
+          };
         })
       );
   }

@@ -7,7 +7,8 @@ import {Meta, Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-post-preview',
-  templateUrl: 'post-preview-component.html'
+  templateUrl: 'post-preview-component.html',
+  styleUrls: ['post-preview.component.scss']
 })
 
 export class PostPreviewComponent implements OnInit {

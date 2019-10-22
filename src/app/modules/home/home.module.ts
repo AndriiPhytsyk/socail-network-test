@@ -20,6 +20,12 @@ import { ShareButtonModule } from '@ngx-share/button';
 import {PostComponent} from './user-profile/user-posts/post/post.component';
 import {ModalContainerComponent} from './user-profile/user-posts/post/modal-container-routable-modals';
 import {PostPreviewComponent} from './user-profile/user-posts/post/post-preview/post-preview.component';
+import { PostEditComponent } from './user-profile/user-posts/post/post-edit/post-edit.component';
+import {PostDetailComponent} from './user-profile/user-posts/post/post-detail/post-detail.component';
+import { PostCommentsComponent } from './user-profile/user-posts/post/post-comments/post-comments.component';
+import { PostCommentComponent } from './user-profile/user-posts/post/post-comments/post-comment/post-comment.component';
+import {CanDeactivateGuard} from '../../guards/can-deactivate';
+import {AuthComponent} from '../auth/auth.component';
 
 
 
@@ -35,7 +41,12 @@ import {PostPreviewComponent} from './user-profile/user-posts/post/post-preview/
     UserPostsComponent,
     PostComponent,
     ModalContainerComponent,
-    PostPreviewComponent
+    PostPreviewComponent,
+    PostEditComponent,
+    PostDetailComponent,
+    PostCommentsComponent,
+    PostCommentComponent,
+    AuthComponent
 
   ],
 
@@ -50,6 +61,7 @@ import {PostPreviewComponent} from './user-profile/user-posts/post/post-preview/
     SharedModule,
     TranslateModule
   ],
+  providers: [CanDeactivateGuard ],
   entryComponents: [
     PostPreviewComponent
   ],

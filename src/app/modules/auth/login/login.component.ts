@@ -22,8 +22,6 @@ export class LoginComponent implements OnInit {
   private user: SocialUser;
   private loggedIn: boolean;
 
-  message: InfoMessage;
-
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -33,12 +31,14 @@ export class LoginComponent implements OnInit {
     private ngZone: NgZone,
     private socialAuthService: AuthService
   ) {
-    // redirect to home if already logged in
+   // redirect to home if already logged in
     if (this.authenticationService.isLoggedIn()) {
       this.router.navigate(['/users/me']);
     }
 
   }
+
+  message: InfoMessage;
 
   ngOnInit() {
     this.socialAuthService.authState.subscribe((user) => {

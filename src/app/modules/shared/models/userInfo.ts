@@ -7,7 +7,10 @@ export class UserInfo implements IUserInfo {
   public email?: string,
   public age?: number,
   public description?: string,
-  public image?: string
+  public image?: string,
+  public posts?: any,
+  public email?: string
+
   ) {
   }
 }

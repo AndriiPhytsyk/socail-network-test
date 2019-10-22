@@ -22,6 +22,8 @@ export class PostComponent implements OnInit, AfterViewInit {
   showedCommentInput = false;
   selectedFile = null;
   forbiddenWord = 'developer';
+  imagePath = '';
+  url = '';
 
 
   constructor(

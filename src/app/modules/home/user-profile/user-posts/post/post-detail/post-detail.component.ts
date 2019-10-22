@@ -88,7 +88,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   hasUnsavedData() {
-    console.log(91,this.subComment)
+    console.log(91, this.subComment)
     return this.comment || this.subComment;
   }
 

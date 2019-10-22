@@ -31,10 +31,10 @@ export class LoginComponent implements OnInit {
     private ngZone: NgZone,
     private socialAuthService: AuthService
   ) {
-    // redirect to home if already logged in
-    // if (this.authenticationService.isLoggedIn()) {
-    //   this.router.navigate(['/users/me']);
-    // }
+   // redirect to home if already logged in
+    if (this.authenticationService.isLoggedIn()) {
+      this.router.navigate(['/users/me']);
+    }
 
   }
 

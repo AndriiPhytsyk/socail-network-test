@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "exclude": [ "src/app/modules/auth/auth.component.ts"],
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

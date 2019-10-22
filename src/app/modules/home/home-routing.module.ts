@@ -21,7 +21,7 @@ const routes: Routes = [
       {path: 'users/me/messages', component: UserMessagesComponent},
       {path: 'users/me/posts/edit/:id', component: PostEditComponent},
       {path: 'users/me/posts/detail/:id', component: PostDetailComponent, canDeactivate: [CanDeactivateGuard]},
-      {path: 'users/me/posts/preview/:id', component: PostPreviewComponent, canDeactivate: [CanDeactivateGuard]},
+      {path: 'users/me/posts/preview/:id', component: PostPreviewComponent},
       {path: 'users/me/posts/:id', component: ModalContainerComponent},
       {path: 'users/me/posts', component: UserPostsComponent},
       {path: 'users/me', component: UserInfoComponent},

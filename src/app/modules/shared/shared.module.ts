@@ -11,8 +11,6 @@ import {ConfirmationDialogComponent} from './components/confirmation-dialog/conf
 import {ConfirmationDialogService} from './services/confirmation-dialog.service';
 import {PaginationComponent} from './components/pagination/pagination.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-// import {ShareButtonModule} from '@ngx-share/button';
-// import {BrowserModule} from '@angular/platform-browser';
 
 @NgModule({
   declarations: [

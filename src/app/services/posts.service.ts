@@ -33,7 +33,7 @@ export class PostsService {
     return this.http.post<any>(`http://${GLOBAL.url}/post/${postId}/comment`, fd);
   }
 
-  getMyPosts(): Observable<Post> {
+  getMyPosts(): Observable<Post[]> {
     return this.http.get<any>(`http://${GLOBAL.url}/users/me`)
       .pipe(map(result => {
         console.log(39, result);

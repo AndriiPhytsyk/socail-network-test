@@ -10,12 +10,12 @@
         <input type="file" id="file" class="custom-file-input " (change)="fileChangeEvent($event)">
         <span class="custom-file-control">Choose file</span>
       </label>
-      <button *ngIf="isImageLoaded" type="button" class="btn btn-primary" (click)="uploadImage($event)">Upload image</button>
+      <button *ngIf="isImageLoaded" type="button" class="btn btn-primary" (click)="uploadImage()">Upload image</button>
     </div>
     <div class="col-6">
       <h6>{{'Про себе' | translate}}</h6>
       <p>
-        {{userInfoForm?.description}}
+        {{userInfo?.description}}
       </p>
       <h6>{{'Електронна пошта' | translate}}</h6>
       <p>

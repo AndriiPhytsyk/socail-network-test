@@ -82,5 +82,17 @@ export class PostComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onSelectFile(event) { // called each time file input changes
+    if (event.target.files && event.target.files[0]) {
+      this.selectedFile = <File> event.target.files[0];
+      const reader = new FileReader();
+      this.imagePath = event.target.files;
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        this.url = reader.result as string; //add source to image
+      };
+    }
+  }
+
 
 }

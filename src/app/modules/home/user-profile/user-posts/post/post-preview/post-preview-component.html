@@ -12,13 +12,13 @@
       </span>
     </div>
     <!-- Preview Image -->
-    <img class="img-fluid rounded" style="height: 200px" [src]="image" alt="">
+    <img class="img-fluid rounded" style="height: 200px" [src]="post.image" alt="">
     <!-- Post Content -->
-    <p class="lead my-2">{{text}}</p>
+    <p class="lead my-2">{{post.text}}</p>
 
     <div class="row d-flex justify-content-end">
       <button type="button" class="btn btn-primary mr-2">Edit</button>
-      <button type="button" class="btn btn-danger" (click)="deletePost(id)">Delete</button>
+      <!--<button type="button" class="btn btn-danger" (click)="deletePost(id)">Delete</button>-->
     </div>
   </div>
 </div>

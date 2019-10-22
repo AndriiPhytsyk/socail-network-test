@@ -17,7 +17,7 @@ export class HomeComponent  {
   searchUsers: string;
 
   constructor( private authenticationService: AuthenticationService,
-               private translate: TranslateService,
+               public translate: TranslateService,
                private confirmationDialogService: ConfirmationDialogService,
                private router: Router,
                private userService: UserService,

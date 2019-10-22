@@ -25,6 +25,7 @@ import {PostDetailComponent} from './user-profile/user-posts/post/post-detail/po
 import { PostCommentsComponent } from './user-profile/user-posts/post/post-comments/post-comments.component';
 import { PostCommentComponent } from './user-profile/user-posts/post/post-comments/post-comment/post-comment.component';
 import {CanDeactivateGuard} from '../../guards/can-deactivate';
+import {AuthComponent} from '../auth/auth.component';
 
 
 
@@ -44,7 +45,8 @@ import {CanDeactivateGuard} from '../../guards/can-deactivate';
     PostEditComponent,
     PostDetailComponent,
     PostCommentsComponent,
-    PostCommentComponent
+    PostCommentComponent,
+    AuthComponent
 
   ],
 

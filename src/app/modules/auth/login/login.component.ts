@@ -22,14 +22,12 @@ export class LoginComponent implements OnInit {
   private user: SocialUser;
   private loggedIn: boolean;
 
-  message: InfoMessage;
-
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private translate: TranslateService,
+    public translate: TranslateService,
     private ngZone: NgZone,
     private socialAuthService: AuthService
   ) {
@@ -39,6 +37,8 @@ export class LoginComponent implements OnInit {
     // }
 
   }
+
+  message: InfoMessage;
 
   ngOnInit() {
     this.socialAuthService.authState.subscribe((user) => {

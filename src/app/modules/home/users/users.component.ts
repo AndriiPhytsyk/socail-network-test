@@ -18,7 +18,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   private _currentSearchValue: string = '';
   private _limitUsers: number = 10;
 
-  private usersLoaded: boolean = false;
+  usersLoaded: boolean = false;
 
   sub1: Subscription;
   sub2: Subscription;

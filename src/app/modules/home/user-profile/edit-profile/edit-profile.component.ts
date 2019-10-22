@@ -12,7 +12,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class EditProfileComponent implements OnInit {
 
   submitted = false;
-  userInfo = {};
+  userInfo: UserInfo = {};
   private id: string;
 
   userInfoForm: FormGroup;

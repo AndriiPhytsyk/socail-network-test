@@ -52,14 +52,14 @@ export class UserPostsComponent implements OnInit {
 
   preview() {
     // Show preview
-    let mimeType = this.fileData.type;
+    const mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
 
-    let reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
-    reader.onload = (_event) => {
+    reader.onload = (event) => {
       this.previewUrl = reader.result;
     };
   }

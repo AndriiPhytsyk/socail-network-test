@@ -42,12 +42,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.socialAuthService.authState.subscribe((user) => {
-      console.log('user', user)
       this.user = user;
       this.loggedIn = (user != null);
     });
 
-    this.message = new InfoMessage('danger', '')
+    this.message = new InfoMessage('danger', '');
     this.route.queryParams
       .subscribe((params: Params) => {
         if (params.nowCanLogin) {

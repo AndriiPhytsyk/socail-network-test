@@ -14,10 +14,9 @@ export class PaginationComponent {
   public pagesArray: Array<number> = [];
   public currentPage = 1;
 
-  @Output() goToPage = new EventEmitter<number>()
+  @Output() goToPage = new EventEmitter<number>();
 
   @Input() set setPagination(pagination: MyPagination) {
-    console.log('pagination', pagination)
     if (pagination) {
       const pagesAmount = Math.ceil(
         pagination.itemsCount / pagination.pageSize
@@ -33,6 +32,4 @@ export class PaginationComponent {
     this.currentPage = pageNumber;
     this.goToPage.emit(pageNumber);
   }
-
-
 }

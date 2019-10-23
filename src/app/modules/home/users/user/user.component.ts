@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '../../../../services/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
-import {UserInfo} from '../../../shared/models/userInfo';
 
 @Component({
   selector: 'app-user',
@@ -14,17 +13,17 @@ export class UserComponent implements OnInit, OnDestroy {
   userInfo: any;
   isLoaded = false;
 
-  constructor(private userService: UserService, private route: ActivatedRoute) { }
+  constructor(private userService: UserService, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(params => {
       const id = params.id;
       this.userService.getUserById(id)
         .subscribe(userInfo => {
-          console.log(24, userInfo)
-        this.userInfo = userInfo['user'];
-        this.isLoaded = true;
-      });
+          this.userInfo = userInfo['user'];
+          this.isLoaded = true;
+        });
     });
   }
 

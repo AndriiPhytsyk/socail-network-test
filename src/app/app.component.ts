@@ -8,7 +8,7 @@ import {AlertService} from './modules/shared/services/alert.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(public translate: TranslateService, private alertService: AlertService){
+  constructor(public translate: TranslateService, private alertService: AlertService) {
     translate.addLangs(['ua', 'en']);
     translate.setDefaultLang('ua');
     const browserLang = translate.getBrowserLang();

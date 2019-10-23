@@ -1,5 +1,4 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {User} from '../../../models/user';
 import {UserService} from '../../../services/user.service';
 import {UserInfo} from '../../shared/models/userInfo';
 import {Subscription} from 'rxjs';
@@ -13,12 +12,11 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   users: UserInfo[];
 
-  public totalUsersAmount: number = 0;
-  private _currentPage: number = 1;
-  private _currentSearchValue: string = '';
-  private _limitUsers: number = 10;
+  public totalUsersAmount = 0;
+  private currentPage = 1;
+  private limitUsers = 10;
 
-  usersLoaded: boolean = false;
+  usersLoaded = false;
 
   sub1: Subscription;
   sub2: Subscription;
@@ -31,12 +29,11 @@ export class UsersComponent implements OnInit, OnDestroy {
       if (result) {
         this.users = result.users;
         this.totalUsersAmount = result.total;
-        console.log(666, result);
       }
 
     });
 
-    this.sub2 = this.userService.getAllUsers(this._currentPage)
+    this.sub2 = this.userService.getAllUsers(this.currentPage)
       .subscribe(users => {
         this.users = users.users;
         this.totalUsersAmount = users.total;
@@ -49,15 +46,15 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.sub2.unsubscribe();
   }
 
-  public goToPage(page: number): void {
-    this._currentPage = page;
+  public goToPage(page): void {
+    this.currentPage = page;
     this._loadUsers(
-      this._currentPage,
-      this._limitUsers
+      this.currentPage,
+      this.limitUsers
     );
   }
 
-  private _loadUsers(page: number = 1, limit: number = 10) {
+  private _loadUsers(page = 1, limit = 10) {
     this.userService.getAllUsers(
       page, limit
     ).subscribe((response) => {

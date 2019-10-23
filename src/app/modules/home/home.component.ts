@@ -5,8 +5,6 @@ import {Router} from '@angular/router';
 import {ConfirmationDialogService} from '../shared/services/confirmation-dialog.service';
 import {UserService} from '../../services/user.service';
 
-
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -29,7 +27,6 @@ export class HomeComponent  {
         if (confirmed) {
           this.userService.deleteUser()
             .subscribe(result => {
-            console.log('result',result)
             if (result) {
               this.router.navigate(['/login']);
             }

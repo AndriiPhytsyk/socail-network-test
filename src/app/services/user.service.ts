@@ -9,7 +9,7 @@ import {Post} from '../interfaces/post/post';
 
 interface Users {
   users: UserInfo[];
-  total: number;
+  total;
 }
 
 @Injectable({providedIn: 'root'})
@@ -24,7 +24,7 @@ export class UserService {
   $users = new BehaviorSubject<Users | undefined>(this.users);
   $posts = new BehaviorSubject<Post | undefined>(null);
 
-  getAllUsers(page: number, limit: number = 10): Observable<any> {
+  getAllUsers(page, limit = 10): Observable<any> {
     return this.http.get<any>(`http://${GLOBAL.url}/users?page=${page}&limit=${limit}`);
   }
 
@@ -44,19 +44,17 @@ export class UserService {
   }
 
   editUserInfo(userInfo) {
-    console.log(typeof userInfo.age)
     return this.http.put<any>(`http://${GLOBAL.url}/users/me`, userInfo);
   }
 
   uploadPhoto(image) {
-    console.log('image', image)
     return this.http.put<any>(`http://${GLOBAL.url}/users/updatePhoto`, image);
   }
 
   getUsersMe(): Observable<any> {
     return this.http.get<any>(`http://${GLOBAL.url}/users/me`)
       .pipe(map(result => {
-          this.$posts.next(result.posts)
+          this.$posts.next(result.posts);
           return {
             user: result.user,
             posts: result.posts,

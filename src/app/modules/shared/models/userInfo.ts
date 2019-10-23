@@ -1,3 +1,17 @@
+export interface IUserInfo {
+  id?: string;
+  name?: string;
+  lastname?: string;
+  image?: string;
+  email?: string;
+  age?: number;
+  city?: string;
+  country?: string;
+  description?: string;
+  role?: string;
+  deleted?: boolean;
+}
+
 export class UserInfo implements IUserInfo {
   constructor(
   public name?: string,
@@ -9,20 +23,7 @@ export class UserInfo implements IUserInfo {
   public image?: string,
   public posts?: any,
   public email?: string
-
   ) {
   }
 }
-export interface IUserInfo {
-   id?: string;
-   name?: string;
-   lastname?: string;
-   image?: string;
-   email?: string;
-   age?: number;
-   city?: string;
-   country?: string;
-   description?: string;
-   role?: string;
-   deleted?: boolean;
-}
+

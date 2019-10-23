@@ -31,17 +31,16 @@ export class UserInfoComponent implements OnInit {
 
    this.userService.getUsersMe()
      .subscribe(userInfo => {
-       console.log('34userInfo', userInfo)
        this.userInfo = userInfo.user;
        this.isUserInfoLoaded = true;
    });
  }
 
   fileChangeEvent(event: any): void {
-    this.selectedFile = <File> event.target.files[0];
+    this.selectedFile = event.target.files[0] as File;
     if (this.selectedFile.name.match(/.(jpg|jpeg|png)$/i)) {
       this.isImageLoaded = true;
-      this.selectedFile = <File> event.target.files[0];
+      this.selectedFile = event.target.files[0] as File;
 
       const reader = new FileReader();
 

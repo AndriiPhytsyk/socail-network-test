@@ -3,6 +3,7 @@ import {UserService} from '../../../../../services/user.service';
 import {PostsService} from '../../../../../services/posts.service';
 import {ConfirmationDialogService} from '../../../../shared/services/confirmation-dialog.service';
 import {CommentsService} from '../../../../../services/comments.service';
+import {ScrollEvent} from 'ngx-scroll-event';
 
 @Component({
   selector: 'app-post',
@@ -25,6 +26,7 @@ export class PostComponent implements OnInit, AfterViewInit {
   imagePath = '';
   url = '';
 
+  isReachingBottom = false;
 
   constructor(
     private userService: UserService,
@@ -96,11 +98,26 @@ export class PostComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onScroll(event) {
-    if (event.target.clientHeight > 816) {
-      console.log(22);
+  // onScroll(event) {
+  //   if (event.target.clientHeight > 816) {
+  //     console.log(22);
+  //   }
+  //   console.log(11, event);
+  // }
+
+  public handleScroll(event: ScrollEvent) {
+    console.log('scroll occurred', event.originalEvent);
+    if (event.isReachingBottom) {
+      this.isReachingBottom = true;
+      console.log(`the user is reaching the bottom`);
     }
-    console.log(11, event);
+    if (event.isReachingTop) {
+      console.log(`the user is reaching the bottom`);
+    }
+    if (event.isWindowEvent) {
+      console.log(`This event is fired on Window not on an element.`);
+    }
+
   }
 
 

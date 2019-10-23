@@ -13,6 +13,7 @@ import {PaginationComponent} from './components/pagination/pagination.component'
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BrowserModule} from '@angular/platform-browser';
+import {ScrollEventModule} from 'ngx-scroll-event';
 // import {ShareButtonModule} from '@ngx-share/button';
 // import {BrowserModule} from '@angular/platform-browser';
 
@@ -35,7 +36,8 @@ import {BrowserModule} from '@angular/platform-browser';
     PaginationComponent,
     ScrollingModule,
     BrowserAnimationsModule,
-    BrowserModule
+    BrowserModule,
+    ScrollEventModule
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,8 @@ import {BrowserModule} from '@angular/platform-browser';
     HttpClientModule,
     ScrollingModule,
     BrowserAnimationsModule,
-    BrowserModule
+    BrowserModule,
+    ScrollEventModule
   ],
   entryComponents: [ConfirmationDialogComponent],
   providers: [ConfirmationDialogService]

@@ -2,10 +2,9 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
 import {PostsService} from '../../../../../../services/posts.service';
 import {CommentsService} from '../../../../../../services/comments.service';
-import {BehaviorSubject} from 'rxjs';
 
 @Component({
-  selector: 'post-detail',
+  selector: 'app-post-detail',
   templateUrl: 'post-detail.component.html',
   styleUrls: ['post-detail.component.scss']
 })
@@ -22,7 +21,7 @@ export class PostDetailComponent implements OnInit {
   selectedFile = null;
   forbiddenWord = 'developer';
 
-  commentsCount: number = 0;
+  commentsCount = 0;
   isCommentsShown = false;
 
   constructor(private route: ActivatedRoute,
@@ -90,10 +89,8 @@ export class PostDetailComponent implements OnInit {
   }
 
   hasUnsavedData() {
-    console.log(91, this.subComment)
     return this.comment || this.subComment;
   }
-
 
   showComments() {
     this.isCommentsShown = !this.isCommentsShown;
@@ -111,6 +108,5 @@ export class PostDetailComponent implements OnInit {
   onScroll(event) {
     console.log(11, event);
   }
-
 
 }

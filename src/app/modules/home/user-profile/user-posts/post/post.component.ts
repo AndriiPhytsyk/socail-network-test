@@ -19,7 +19,7 @@ export class PostComponent implements OnInit, AfterViewInit {
   @Input() comments: any;
   @Output() onPostDeleted = new EventEmitter();
 
-  postComment: string = '';
+  postComment = '';
   showedCommentInput = false;
   selectedFile = null;
   forbiddenWord = 'developer';
@@ -50,7 +50,6 @@ export class PostComponent implements OnInit, AfterViewInit {
         if (confirmed) {
           this.postsService.deletePost(id)
             .subscribe(res => {
-              console.log(44, res)
               this.onPostDeleted.emit(id);
             });
         }

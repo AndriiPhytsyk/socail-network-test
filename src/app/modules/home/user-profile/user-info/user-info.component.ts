@@ -45,7 +45,7 @@ export class UserInfoComponent implements OnInit {
       const reader = new FileReader();
 
       reader.readAsDataURL(this.selectedFile);
-      reader.onload = (_event) => {
+      reader.onload = () => {
         this.userInfo.image = reader.result as string;
       };
     } else {

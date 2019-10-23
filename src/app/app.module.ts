@@ -18,7 +18,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {AlertComponent} from './modules/shared/components/alert';
 import {AlertService} from './modules/shared/services/alert.service';
-import {HttpModule} from '@angular/http';
 import { ShareButtonModule } from '@ngx-share/button';
 import {PostsService} from './services/posts.service';
 import {SharedModule} from './modules/shared/shared.module';
@@ -51,7 +50,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgbModule,
     AngularFontAwesomeModule,
     ShareButtonModule,
-    HttpModule,
     SharedModule,
 
     TranslateModule.forRoot({

@@ -33,7 +33,6 @@ export class UserPostsComponent implements OnInit {
   ngOnInit() {
     this.postsService.getMyPosts()
       .subscribe(posts => {
-        console.log(41, posts)
         this.posts = posts;
       });
   }
@@ -46,7 +45,7 @@ export class UserPostsComponent implements OnInit {
 
   fileProgress(fileInput: any) {
     console.log(fileInput);
-    this.fileData = <File> fileInput.target.files[0];
+    this.fileData = fileInput.target.files[0] as File;
     this.preview();
   }
 

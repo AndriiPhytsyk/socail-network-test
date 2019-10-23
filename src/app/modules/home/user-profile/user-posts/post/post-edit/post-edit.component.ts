@@ -36,20 +36,20 @@ export class PostEditComponent implements OnInit {
 
   fileProgress(fileInput: any) {
     console.log(fileInput);
-    this.fileData = <File> fileInput.target.files[0];
+    this.fileData = fileInput.target.files[0] as File;
     this.preview();
   }
 
   preview() {
     // Show preview
-    let mimeType = this.fileData.type;
+    const mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
 
-    let reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
-    reader.onload = (_event) => {
+    reader.onload = () => {
       this.previewUrl = reader.result;
     };
   }

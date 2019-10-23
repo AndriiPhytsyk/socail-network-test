@@ -9,7 +9,7 @@ import {AlertService} from '../../services/alert.service';
   styleUrls: ['./alert.component.scss']
 })
 
-export class AlertComponent implements OnInit{
+export class AlertComponent implements OnInit {
 
   @Input() id: string;
 

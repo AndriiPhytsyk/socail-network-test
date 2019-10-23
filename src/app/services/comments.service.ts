@@ -9,7 +9,6 @@ export class CommentsService {
   }
 
   replyToComment(text, commentId) {
-    debugger
     return this.http.post<any>(`http://${GLOBAL.url}/comment/${commentId}/response`, {
       text
     });

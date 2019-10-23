@@ -1,4 +1,4 @@
-import {CommentResponses} from '../comment-responses/comment-responses';
+import {CommentResponses} from '../comment-response/comment-responses';
 
 export interface PostComment {
   _id: string;
@@ -10,3 +10,5 @@ export interface PostComment {
   can_respond: boolean;
   responses: Array<CommentResponses>;
 }
+
+

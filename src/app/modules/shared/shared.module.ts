@@ -11,6 +11,8 @@ import {ConfirmationDialogComponent} from './components/confirmation-dialog/conf
 import {ConfirmationDialogService} from './services/confirmation-dialog.service';
 import {PaginationComponent} from './components/pagination/pagination.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {BrowserModule} from '@angular/platform-browser';
 // import {ShareButtonModule} from '@ngx-share/button';
 // import {BrowserModule} from '@angular/platform-browser';
 
@@ -31,20 +33,21 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     AngularFontAwesomeModule,
     ImageCropperModule,
     PaginationComponent,
-    ScrollingModule
-
+    ScrollingModule,
+    BrowserAnimationsModule,
+    BrowserModule
   ],
   imports: [
     CommonModule,
     FormsModule,
     HttpClientModule,
-    ScrollingModule
-
+    ScrollingModule,
+    BrowserAnimationsModule,
+    BrowserModule
   ],
-
   entryComponents: [ConfirmationDialogComponent],
   providers: [ConfirmationDialogService]
-
 })
+
 export class SharedModule {
 }

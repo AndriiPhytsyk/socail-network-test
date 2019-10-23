@@ -115,3 +115,16 @@ body {
 .login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
   padding: 0.8375em 0;
 }
+
+.fadeIn {
+  animation: fadeIn .25s ease-in;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity:0
+  }
+  100% {
+    opacity:1;
+  }
+}

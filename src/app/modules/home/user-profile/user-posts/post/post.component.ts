@@ -18,7 +18,7 @@ export class PostComponent implements OnInit, AfterViewInit {
   @Input() comments: any;
   @Output() onPostDeleted = new EventEmitter();
 
-  postComment: string;
+  postComment: string = '';
   showedCommentInput = false;
   selectedFile = null;
   forbiddenWord = 'developer';
@@ -96,5 +96,13 @@ export class PostComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onScroll(event) {
+    if (event.target.clientHeight > 816) {
+      console.log(22);
+    }
+    console.log(11, event);
+  }
+
 
 }
+

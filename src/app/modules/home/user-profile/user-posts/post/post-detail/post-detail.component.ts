@@ -108,5 +108,9 @@ export class PostDetailComponent implements OnInit {
     return this.post.comments.length + subCommentsCount;
   }
 
+  onScroll(event) {
+    console.log(11, event);
+  }
+
 
 }

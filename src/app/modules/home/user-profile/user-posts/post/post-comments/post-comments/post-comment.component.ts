@@ -1,12 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PostsService} from '../../../../../../../services/posts.service';
 import {CommentsService} from '../../../../../../../services/comments.service';
-import {NavigationEnd, Router} from '@angular/router';
+import {Router} from '@angular/router';
+import {animate, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-post-comment',
   templateUrl: './post-comment.component.html',
-  styleUrls: ['./post-comment.component.scss']
+  styleUrls: ['./post-comment.component.scss'],
+
 })
 export class PostCommentComponent implements OnInit {
 
@@ -19,6 +21,8 @@ export class PostCommentComponent implements OnInit {
   comment: string = '';
   subComment: string = '';
   forbiddenWord = 'developer';
+  isRepliesShown = false;
+
 
 
   @Input() postComment;
@@ -30,10 +34,12 @@ export class PostCommentComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   showSubCommentInput() {
     this.replyCommentInput = !this.replyCommentInput;
+    this.isRepliesShown = true;
   }
 
 
@@ -42,7 +48,7 @@ export class PostCommentComponent implements OnInit {
       .subscribe(res => {
         console.log(45, res);
         console.log(46, this.postComment);
-        this.postComment.responses.unshift({text: this.subComment}); //todo
+        this.postComment.responses.push({text: this.subComment}); //todo
         this.replyCommentInput = false;
         this.subComment = '';
       });
@@ -59,6 +65,11 @@ export class PostCommentComponent implements OnInit {
         this.url = reader.result as string; //add source to image
       };
     }
+  }
+
+  showReplies() {
+    this.isRepliesShown = !this.isRepliesShown;
+    this.replyCommentInput = true;
   }
 
 }

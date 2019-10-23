@@ -13,7 +13,6 @@ import { UserComponent } from './users/user/user.component';
 import { UserMessagesComponent } from './user-profile/user-messages/user-messages.component';
 import {UserPostsComponent} from './user-profile/user-posts/user-posts.component';
 import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
-import {MaterialModule} from '../../material.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {SharedModule} from '../shared/shared.module';
 import { ShareButtonModule } from '@ngx-share/button';
@@ -23,8 +22,10 @@ import {PostPreviewComponent} from './user-profile/user-posts/post/post-preview/
 import { PostEditComponent } from './user-profile/user-posts/post/post-edit/post-edit.component';
 import {PostDetailComponent} from './user-profile/user-posts/post/post-detail/post-detail.component';
 import { PostCommentsComponent } from './user-profile/user-posts/post/post-comments/post-comments.component';
-import { PostCommentComponent } from './user-profile/user-posts/post/post-comments/post-comment/post-comment.component';
 import {CanDeactivateGuard} from '../../guards/can-deactivate';
+import {PostCommentComponent} from './user-profile/user-posts/post/post-comments/post-comments/post-comment.component';
+
+
 
 @NgModule({
   declarations: [
@@ -42,8 +43,7 @@ import {CanDeactivateGuard} from '../../guards/can-deactivate';
     PostEditComponent,
     PostDetailComponent,
     PostCommentsComponent,
-    PostCommentComponent
-
+    PostCommentComponent,
   ],
 
   imports: [

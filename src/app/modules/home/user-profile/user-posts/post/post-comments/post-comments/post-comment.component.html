@@ -1,12 +1,22 @@
 <p *ngIf="postComment.files">
   <img class="comment-image" [src]="postComment.files[0]" alt="">
 </p>
-<p class="comment my-1">
+<p class="comment my-1 fadeIn">
   {{postComment.text}}
 </p>
-<p style="cursor: pointer; color: blue" (click)="showSubCommentInput()">
-  <small>reply</small>
-</p>
+<div class="d-flex justify-content-between" style="cursor: pointer; color: blue">
+  <small (click)="showSubCommentInput()">reply</small>
+  <small (click)="showReplies()">{{postComment.responses.length}} replies</small>
+</div>
+<div *ngIf="isRepliesShown">
+  <p
+     *ngFor="let response of postComment.responses; let i = index"
+     class="comment my-1 ml-3 fadeIn"
+  >
+    {{response.text}}
+  </p>
+</div>
+
 
 <ng-container *ngIf="replyCommentInput">
   <div class="col-sm-12">
@@ -20,10 +30,5 @@
     >
   </div>
 </ng-container>
-
-<p *ngFor="let response of postComment.responses"
-   class="comment my-1 ml-3">
-  {{response.text}}
-</p>
 <hr>
 

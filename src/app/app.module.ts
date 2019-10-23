@@ -36,7 +36,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     AlertComponent
-
   ],
   imports: [
     CommonModule,

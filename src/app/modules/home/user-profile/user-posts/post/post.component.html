@@ -1,4 +1,4 @@
-<div class="post-container container my-5" detect-scroll (onScroll)="handleScroll($event)" [bottomOffset]="50" >
+<div class="container my-5">
   <div class="mb-4">
     <!-- Post Content Column -->
     <div class="col-lg-12">
@@ -20,12 +20,23 @@
         <button mat-button (click)="showComments()">{{showCommentsCount()}} Comments</button>
       </div>
       <hr>
-        <button mat-button (click)="showCommentInput()">Comment</button>
-        <button mat-button [routerLink]="['/users/me/posts/', id]">
-          <i class="fa fa-share-alt mr-1"></i>
-          <span>Share</span>
-        </button>
+      <button mat-button (click)="showCommentInput()">Comment</button>
+      <button mat-button [routerLink]="['/users/me/posts/', id]">
+        <i class="fa fa-share-alt mr-1"></i>
+        <span>Share</span>
+      </button>
       <div class="row">
+        <ng-container *ngIf="isCommentsShown">
+          <div class="comments-container container" detect-scroll (onScroll)="handleScroll($event)" [bottomOffset]="50">
+
+            <app-post-comments
+              [isReachingBottom]="isReachingBottom"
+              [comments]="comments"
+              [id]="id"
+            >
+            </app-post-comments>
+          </div>
+        </ng-container>
         <ng-container *ngIf="showedCommentInput">
           <div class="col-sm-12">
             <span class="counter mt-3 d-block text-right">{{postComment.length}}/50</span>
@@ -41,22 +52,13 @@
             <div class="col-sm-12">
               <input type='file' (change)="onSelectFile($event)">
             </div>
-            <!--<div class="col-sm-12 my-2">-->
-            <!--<img [src]="url" height="100" *ngIf="url">-->
-            <!--</div>-->
+            <div class="col-sm-12 my-2">
+              <img [src]="url" height="100" width="100" *ngIf="url">
+            </div>
           </div>
         </ng-container>
       </div>
-      <ng-container *ngIf="isCommentsShown">
-        <app-post-comments
-          [isReachingBottom]="isReachingBottom"
-          [comments]="comments"
-          [id] = "id"
-        >
-        </app-post-comments>
-      </ng-container>
     </div>
   </div>
 </div>
-
 

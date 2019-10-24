@@ -38,9 +38,7 @@ export class PostComponent implements OnInit, AfterViewInit {
   ) {
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   ngAfterViewInit() {
     console.log(36, this.comments);
@@ -96,13 +94,6 @@ export class PostComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // onScroll(event) {
-  //   if (event.target.clientHeight > 816) {
-  //     console.log(22);
-  //   }
-  //   console.log(11, event);
-  // }
-
   public handleScroll(event: ScrollEvent) {
     console.log('scroll occurred', event.originalEvent);
     if (event.isReachingBottom && !event.isWindowEvent) {
@@ -110,12 +101,12 @@ export class PostComponent implements OnInit, AfterViewInit {
       console.log(111, this.isReachingBottom);
       console.log(`the user is reaching the bottom`);
     }
-    if (event.isReachingTop) {
-      console.log(`the user is reaching the bottom`);
-    }
-    if (event.isWindowEvent) {
-      console.log(`This event is fired on Window not on an element.`);
-    }
+    // if (event.isReachingTop) {
+    //   console.log(`the user is reaching the bottom`);
+    // }
+    // if (event.isWindowEvent) {
+    //   console.log(`This event is fired on Window not on an element.`);
+    // }
 
   }
 
@@ -125,7 +116,6 @@ export class PostComponent implements OnInit, AfterViewInit {
   }
 
   showComments() {
-    this.isCommentsShown = !this.isCommentsShown;
     this.showedCommentInput = !this.showedCommentInput;
   }
 
@@ -136,6 +126,11 @@ export class PostComponent implements OnInit, AfterViewInit {
     });
 
     return this.comments.length + subCommentsCount;
+  }
+
+  hasUnsavedData() {
+    console.log(133, this.postComment);
+    return this.postComment;
   }
 
 

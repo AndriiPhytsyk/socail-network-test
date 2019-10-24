@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {PostsService} from '../../../../../../../services/posts.service';
 import {CommentsService} from '../../../../../../../services/comments.service';
 import {Router} from '@angular/router';
+import {DataService} from '../../../../../../../services/data.service';
 
 @Component({
   selector: 'app-post-comment',
@@ -26,7 +27,8 @@ export class PostCommentComponent implements OnInit {
 
   constructor(private postsService: PostsService,
               private commentsService: CommentsService,
-              private router: Router
+              private router: Router,
+              private dataService: DataService
   ) {
   }
 

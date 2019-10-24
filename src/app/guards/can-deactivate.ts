@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {CanDeactivate} from '@angular/router';
-import {PostDetailComponent} from '../modules/home/user-profile/user-posts/post/post-detail/post-detail.component';
 import {ConfirmationDialogService} from '../modules/shared/services/confirmation-dialog.service';
+import {PostDetailComponent} from '../modules/home/user-profile/user-posts/post/post-detail/post-detail.component';
 
 @Injectable()
 export class CanDeactivateGuard implements CanDeactivate<PostDetailComponent> {

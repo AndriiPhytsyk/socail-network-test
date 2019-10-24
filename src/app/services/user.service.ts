@@ -36,7 +36,10 @@ export class UserService {
   }
 
   getUserById(id): Observable<UserInfo> {
-    return this.http.get<any>(`http://${GLOBAL.url}/users/${id}`);
+    return this.http.get<any>(`http://${GLOBAL.url}/users/${id}`)
+      .pipe(map( user => {
+        return user.userInfo;
+      }));
   }
 
   register(user: any): Observable<any> {

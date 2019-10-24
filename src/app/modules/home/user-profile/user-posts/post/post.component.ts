@@ -17,7 +17,7 @@ export class PostComponent implements OnInit, AfterViewInit {
   @Input() image: string;
   @Input() id: string;
   @Input() comments: any;
-  @Output() onPostDeleted = new EventEmitter();
+  @Output() postDeleted = new EventEmitter();
 
   postComment = '';
   showedCommentInput = false;
@@ -50,7 +50,7 @@ export class PostComponent implements OnInit, AfterViewInit {
         if (confirmed) {
           this.postsService.deletePost(id)
             .subscribe(res => {
-              this.onPostDeleted.emit(id);
+              this.postDeleted.emit(id);
             });
         }
       })

@@ -1,5 +1,5 @@
-<div class="post-container" detect-scroll (onScroll)="handleScroll($event)" [bottomOffset]="200" [topOffset]="200">
-  <div class="row mb-4">
+<div class="post-container container my-5" detect-scroll (onScroll)="handleScroll($event)" [bottomOffset]="50" >
+  <div class="mb-4">
     <!-- Post Content Column -->
     <div class="col-lg-12">
       <hr>
@@ -13,21 +13,19 @@
       </div>
       <!-- Preview Image -->
       <img [routerLink]="['/users/me/posts/detail/', id]" style="cursor: pointer" class="img" src="{{image}}" alt="">
-      {{image}}
       <!-- Post Content -->
       <p class="lead my-2">{{text}}</p>
-      <app-post-comments
-        [isReachingBottom]="isReachingBottom"
-        [comments]="comments"
-        [id] = "id"
-      >
-      </app-post-comments>
-      <div class="row">
+      <hr>
+      <div class="comments-count">
+        <button mat-button (click)="showComments()">{{showCommentsCount()}} Comments</button>
+      </div>
+      <hr>
         <button mat-button (click)="showCommentInput()">Comment</button>
         <button mat-button [routerLink]="['/users/me/posts/', id]">
           <i class="fa fa-share-alt mr-1"></i>
           <span>Share</span>
         </button>
+      <div class="row">
         <ng-container *ngIf="showedCommentInput">
           <div class="col-sm-12">
             <span class="counter mt-3 d-block text-right">{{postComment.length}}/50</span>
@@ -49,6 +47,14 @@
           </div>
         </ng-container>
       </div>
+      <ng-container *ngIf="isCommentsShown">
+        <app-post-comments
+          [isReachingBottom]="isReachingBottom"
+          [comments]="comments"
+          [id] = "id"
+        >
+        </app-post-comments>
+      </ng-container>
     </div>
   </div>
 </div>

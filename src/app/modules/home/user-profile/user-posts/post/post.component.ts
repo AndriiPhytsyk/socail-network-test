@@ -4,6 +4,7 @@ import {PostsService} from '../../../../../services/posts.service';
 import {ConfirmationDialogService} from '../../../../shared/services/confirmation-dialog.service';
 import {CommentsService} from '../../../../../services/comments.service';
 import {ScrollEvent} from 'ngx-scroll-event';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-post',
@@ -21,12 +22,13 @@ export class PostComponent implements OnInit, AfterViewInit {
 
   postComment = '';
   showedCommentInput = false;
+  isCommentsShown = false;
   selectedFile = null;
   forbiddenWord = 'developer';
   imagePath = '';
   url = '';
 
-  isReachingBottom = false;
+  isReachingBottom = new BehaviorSubject(false);
 
   constructor(
     private userService: UserService,
@@ -57,9 +59,6 @@ export class PostComponent implements OnInit, AfterViewInit {
       .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
   }
 
-  showCommentInput() {
-    this.showedCommentInput = !this.showedCommentInput;
-  }
 
   addComment() {
     if (this.postComment.includes(this.forbiddenWord)) {
@@ -78,7 +77,7 @@ export class PostComponent implements OnInit, AfterViewInit {
     } else {
       this.postsService.addComment(this.id, {text: this.postComment})
         .subscribe(res => {
-          this.comments.push(res.comment);
+          this.comments.unshift(res.comment);
           this.showedCommentInput = false;
           this.postComment = '';
         });
@@ -106,8 +105,9 @@ export class PostComponent implements OnInit, AfterViewInit {
 
   public handleScroll(event: ScrollEvent) {
     console.log('scroll occurred', event.originalEvent);
-    if (event.isReachingBottom) {
-      this.isReachingBottom = true;
+    if (event.isReachingBottom && !event.isWindowEvent) {
+      this.isReachingBottom.next(true);
+      console.log(111, this.isReachingBottom);
       console.log(`the user is reaching the bottom`);
     }
     if (event.isReachingTop) {
@@ -117,6 +117,25 @@ export class PostComponent implements OnInit, AfterViewInit {
       console.log(`This event is fired on Window not on an element.`);
     }
 
+  }
+
+  showCommentInput() {
+    this.showedCommentInput = !this.showedCommentInput;
+    this.isCommentsShown = true;
+  }
+
+  showComments() {
+    this.isCommentsShown = !this.isCommentsShown;
+    this.showedCommentInput = !this.showedCommentInput;
+  }
+
+  showCommentsCount() {
+    let subCommentsCount = 0;
+    this.comments.forEach(comment => {
+      subCommentsCount += comment.responses.length;
+    });
+
+    return this.comments.length + subCommentsCount;
   }
 
 

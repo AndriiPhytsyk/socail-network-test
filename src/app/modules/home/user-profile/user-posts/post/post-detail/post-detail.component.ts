@@ -36,8 +36,8 @@ export class PostDetailComponent implements OnInit {
       const id = params.id;
       this.postsService.getPostById(id)
         .subscribe(res => {
-          console.log(23, res);
           this.post = res.post;
+          console.log(40, this.post)
           this.isPostLoaded = true;
           this.commentsCount = res.post.comments.length;
         });

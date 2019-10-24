@@ -1,7 +1,4 @@
-import {Component, HostListener, Input, OnInit} from '@angular/core';
-import {PostsService} from '../../../../../../services/posts.service';
-import {CommentsService} from '../../../../../../services/comments.service';
-import {animate, style, transition, trigger} from '@angular/animations';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-post-comments',
@@ -20,10 +17,13 @@ export class PostCommentsComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log(55, this.isReachingBottom);
-    if (this.isReachingBottom) {
-      this.showedCommentsCount += this.showedCommentsCount;
-    }
+    this.isReachingBottom.subscribe(isReachedBottom => {
+      if (isReachedBottom) {
+        this.showedCommentsCount += this.showedCommentsCount;
+        this.isReachingBottom.next(false);
+      }
+    });
+
   }
 
   // @HostListener('scroll', ['$event'])

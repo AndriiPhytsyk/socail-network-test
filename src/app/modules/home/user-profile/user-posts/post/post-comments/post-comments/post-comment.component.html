@@ -3,6 +3,8 @@
 </p>
 <p class="comment my-1 fadeIn">
   {{postComment.text}}
+  <a href="{{postComment.files[0]}}" class="file-reference">{{postComment.files[0]}}</a>
+
 </p>
 <div class="d-flex justify-content-between" style="cursor: pointer; color: blue">
   <small (click)="showSubCommentInput()">reply</small>
@@ -14,9 +16,9 @@
      class="comment my-1 ml-3 fadeIn"
   >
     {{response.text}}
+    {{postComment.files[0]}}
   </p>
 </div>
-
 
 <ng-container *ngIf="replyCommentInput">
   <div class="col-sm-12">
@@ -27,6 +29,7 @@
       [(ngModel)]="subComment"
       (keyup.enter)="addSubComment()"
       maxlength="50"
+      (input) = watchInputValue()
     >
   </div>
 </ng-container>

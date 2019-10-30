@@ -1,12 +1,43 @@
-.img {
-  height: 200px;
-  object-fit: cover;
-  width: 100%;
-  margin-top: 10px;
-}
-
+//.img {
+//  height: 200px;
+//  object-fit: cover;
+//  width: 100%;
+//  margin-top: 10px;
+//}
 
 .comments-container {
   height: 300px;
   overflow: auto;
 }
+
+.post-card {
+  max-width: 400px;
+
+  &:hover {
+    background: #f9f9f9;
+    cursor: pointer;
+    transition: .2s;
+  }
+
+  .header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }
+
+}
+
+mat-icon {
+  cursor: pointer;
+  &:hover {
+    background: #eaeaea;
+    transition: 0.2s;
+  }
+}
+
+.mat-card-image {
+  max-height: 300px;
+  object-fit: cover;
+
+}
+
+

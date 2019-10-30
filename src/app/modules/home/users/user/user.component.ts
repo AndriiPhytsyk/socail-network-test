@@ -21,6 +21,7 @@ export class UserComponent implements OnInit, OnDestroy {
       const id = params.id;
       this.userService.getUserById(id)
         .subscribe(userInfo => {
+          console.log(24, userInfo);
           this.userInfo = userInfo;
           this.isLoaded = true;
         });

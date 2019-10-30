@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {MaterialModule} from './material.module';
+// import {MaterialModule} from './material.module';
 import {AuthModule} from './modules/auth/auth.module';
 import {FormsModule} from '@angular/forms';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -23,6 +23,7 @@ import {PostsService} from './services/posts.service';
 import {SharedModule} from './modules/shared/shared.module';
 import {CommonModule} from '@angular/common';
 import {CommentsService} from './services/comments.service';
+import {ConfirmDialogComponent} from './modules/shared/components/confirm-dialog/confirm-dialog.component';
 
 // AoT requires an exported function for factories
 
@@ -40,7 +41,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     CommonModule,
     BrowserModule,
     AppRoutingModule,
-    MaterialModule,
     AuthModule,
     FormsModule,
     FlexLayoutModule,
@@ -68,6 +68,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     PostsService,
     CommentsService
     ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfirmDialogComponent]
 })
 export class AppModule { }

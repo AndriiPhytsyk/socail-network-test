@@ -22,7 +22,7 @@ export class UserService {
   users: { users: [], total: null };
 
   $users = new BehaviorSubject<Users | undefined>(this.users);
-  $posts = new BehaviorSubject<Post | undefined>(null);
+  // $posts = new BehaviorSubject<Post | undefined>(null);
 
   getAllUsers(page, limit = 10): Observable<any> {
     return this.http.get<any>(`http://${GLOBAL.url}/users?page=${page}&limit=${limit}`);
@@ -37,8 +37,8 @@ export class UserService {
 
   getUserById(id): Observable<UserInfo> {
     return this.http.get<any>(`http://${GLOBAL.url}/users/${id}`)
-      .pipe(map( user => {
-        return user.userInfo;
+      .pipe(map( result => {
+        return result.user;
       }));
   }
 
@@ -57,7 +57,7 @@ export class UserService {
   getUsersMe(): Observable<any> {
     return this.http.get<any>(`http://${GLOBAL.url}/users/me`)
       .pipe(map(result => {
-          this.$posts.next(result.posts);
+          // this.$posts.next(result.posts);
           return {
             user: result.user,
             posts: result.posts,

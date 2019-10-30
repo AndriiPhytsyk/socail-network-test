@@ -5,6 +5,8 @@ import {ConfirmationDialogService} from '../../../../shared/services/confirmatio
 import {CommentsService} from '../../../../../services/comments.service';
 import {ScrollEvent} from 'ngx-scroll-event';
 import {BehaviorSubject} from 'rxjs';
+import {ConfirmDialogService} from '../../../../shared/services/confirm-dialog.service';
+import {DataService} from '../../../../../services/data.service';
 
 @Component({
   selector: 'app-post',
@@ -33,28 +35,30 @@ export class PostComponent implements OnInit, AfterViewInit {
   constructor(
     private userService: UserService,
     private postsService: PostsService,
+    private confirmDialogService: ConfirmDialogService,
     private confirmationDialogService: ConfirmationDialogService,
-    private commentsService: CommentsService
+    private commentsService: CommentsService,
+    private dataService: DataService
   ) {
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   ngAfterViewInit() {
     console.log(36, this.comments);
   }
 
   deletePost(id) {
-    this.confirmationDialogService.confirm('Please confirm..', 'Do you really want to delete post ?')
-      .then((confirmed) => {
+    this.confirmDialogService.confirm('Підтвердження', 'Ви дійсно хочете видалити це пост?', 'Так', 'Ні')
+      .subscribe((confirmed) => {
         if (confirmed) {
           this.postsService.deletePost(id)
             .subscribe(res => {
               this.postDeleted.emit(id);
             });
         }
-      })
-      .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+      });
   }
 
 
@@ -83,12 +87,20 @@ export class PostComponent implements OnInit, AfterViewInit {
   }
 
   onSelectFile(event) { // called each time file input changes
+    console.log(90, event);
     if (event.target.files && event.target.files[0]) {
       this.selectedFile = event.target.files[0] as File;
       const reader = new FileReader();
       this.imagePath = event.target.files;
       reader.readAsDataURL(event.target.files[0]); // read file as data url
       reader.onload = () => { // called once readAsDataURL is completed
+        if (event.target.files[0].name.includes('.docx')) {
+          return this.url = '../../../../../../assets/images/upload-files/docx.png';
+        }
+        if (event.target.files[0].name.includes('.txt')) {
+          return this.url = '../../../../../../assets/images/upload-files/txt.png';
+        }
+
         this.url = reader.result as string; // add source to image
       };
     }
@@ -111,12 +123,14 @@ export class PostComponent implements OnInit, AfterViewInit {
   }
 
   showCommentInput() {
-    this.showedCommentInput = !this.showedCommentInput;
+    this.showedCommentInput = true;
     this.isCommentsShown = true;
   }
 
   showComments() {
     this.showedCommentInput = !this.showedCommentInput;
+    this.isCommentsShown = !this.isCommentsShown;
+
   }
 
   showCommentsCount() {
@@ -128,11 +142,9 @@ export class PostComponent implements OnInit, AfterViewInit {
     return this.comments.length + subCommentsCount;
   }
 
-  hasUnsavedData() {
-    console.log(133, this.postComment);
-    return this.postComment;
+  watchInputValue() {
+    this.dataService.commentInputValue(this.postComment);
   }
-
 
 }
 

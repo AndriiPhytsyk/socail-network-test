@@ -1,63 +1,68 @@
 <div class="container my-5">
   <div class="mb-4">
     <!-- Post Content Column -->
-    <div class="col-lg-12">
-      <hr>
-      <div class="row justify-content-between">
-        <!-- Date/Time -->
-        <p>Posted on January 1, 2019 at 12:00 PM</p>
-        <div class="row d-flex justify-content-end">
-          <button [routerLink]="['/users/me/posts/edit', id]" type="button" class="btn btn-primary mr-2">Edit</button>
-          <button type="button" class="btn btn-danger" (click)="deletePost(id)">Delete</button>
-        </div>
-      </div>
-      <!-- Preview Image -->
-      <img [routerLink]="['/users/me/posts/detail/', id]" style="cursor: pointer" class="img" src="{{image}}" alt="">
-      <!-- Post Content -->
-      <p class="lead my-2">{{text}}</p>
-      <hr>
-      <div class="comments-count">
-        <button mat-button (click)="showComments()">{{showCommentsCount()}} Comments</button>
-      </div>
-      <hr>
-      <button mat-button (click)="showCommentInput()">Comment</button>
-      <button mat-button [routerLink]="['/users/me/posts/', id]">
-        <i class="fa fa-share-alt mr-1"></i>
-        <span>Share</span>
-      </button>
-      <div class="row">
-        <ng-container *ngIf="isCommentsShown">
-          <div class="comments-container container" detect-scroll (onScroll)="handleScroll($event)" [bottomOffset]="50">
-
-            <app-post-comments
-              [isReachingBottom]="isReachingBottom"
-              [comments]="comments"
-              [id]="id"
-            >
-            </app-post-comments>
+    <div class="col-sm-12">
+      <mat-card class="post-card">
+        <mat-card-header>
+          <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+          <div mat-card-avatar class="header-image"></div>
+          <mat-card-subtitle>
+            <p>Posted on January 1, 2019 at 12:00 PM</p>
+          </mat-card-subtitle>
+          <div>
+            <mat-icon matTooltip="Редагувати пост" [routerLink]="['/users/me/posts/edit', id]">edit</mat-icon>
+            <mat-icon matTooltip="Видалити пост" (click)="deletePost(id)">delete</mat-icon>
           </div>
-        </ng-container>
-        <ng-container *ngIf="showedCommentInput">
-          <div class="col-sm-12">
-            <span class="counter mt-3 d-block text-right">{{postComment.length}}/50</span>
-            <input
-              class="form-control mb-2"
-              type="text"
-              [(ngModel)]="postComment"
-              (keyup.enter)="addComment()"
-              maxlength="50"
-            >
-          </div>
-          <div class="row">
+        </mat-card-header>
+        <img [routerLink]="['/users/me/posts/detail/', id]" mat-card-image src="{{image}}">
+        <mat-card-content>
+          <p>{{text}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button (click)="showCommentInput()">Comment</button>
+            <button mat-button [routerLink]="['/users/me/posts/', id]">
+              <mat-icon>share</mat-icon>
+              <span>Share</span>
+            </button>
+            <button mat-button (click)="showComments()">{{showCommentsCount()}} Comments</button>
+        </mat-card-actions>
+        <div class="row">
+          <ng-container *ngIf="isCommentsShown">
+            <div class="comments-container container" [ngClass]="{'comments-container': comments.length > 3 }"
+                 detect-scroll (onScroll)="handleScroll($event)" [bottomOffset]="50">
+              <app-post-comments
+                [isReachingBottom]="isReachingBottom"
+                [comments]="comments"
+                [id]="id"
+              >
+              </app-post-comments>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="showedCommentInput">
             <div class="col-sm-12">
-              <input type='file' (change)="onSelectFile($event)">
+              <span class="counter mt-3 d-block text-right">{{postComment.length}}/50</span>
+              <input
+                class="form-control mb-2"
+                type="text"
+                [(ngModel)]="postComment"
+                (keyup.enter)="addComment()"
+                maxlength="50"
+                (input) = 'watchInputValue()'
+              >
             </div>
-            <div class="col-sm-12 my-2">
-              <img [src]="url" height="100" width="100" *ngIf="url">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <input type='file' (change)="onSelectFile($event)">
+              </div>
+              <div class="col-sm-12 my-2">
+                <img [src]="url" height="100" width="100" *ngIf="url">
+              </div>
             </div>
-          </div>
-        </ng-container>
-      </div>
+          </ng-container>
+        </div>
+      </mat-card>
+
     </div>
   </div>
 </div>

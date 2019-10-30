@@ -31,6 +31,7 @@ export class UserInfoComponent implements OnInit {
 
    this.userService.getUsersMe()
      .subscribe(userInfo => {
+       console.log(34, userInfo);
        this.userInfo = userInfo.user;
        this.isUserInfoLoaded = true;
    });

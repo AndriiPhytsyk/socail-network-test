@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {PostsService} from '../../../../../../services/posts.service';
 import {CommentsService} from '../../../../../../services/comments.service';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {DataService} from '../../../../../../services/data.service';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-post-detail',
@@ -21,8 +22,10 @@ export class PostDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private postsService: PostsService,
+              private dataService: DataService
 
   ) {
+
   }
 
   ngOnInit() {
@@ -34,10 +37,10 @@ export class PostDetailComponent implements OnInit {
           this.isPostLoaded = true;
         });
     });
+    this.dataService.cleanInputs();
   }
 
   hasUnsavedData() {
-    return false;
+    return this.dataService.isDirtyInputs();
   }
-
 }

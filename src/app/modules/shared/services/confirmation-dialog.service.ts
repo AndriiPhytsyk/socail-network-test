@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {ConfirmationDialogComponent} from '../components/confirmation-dialog/confirmation-dialog.component';
+import {ConfirmDialogComponent} from '../components/confirm-dialog/confirm-dialog.component';
 
 
 @Injectable()
@@ -15,7 +15,7 @@ export class ConfirmationDialogService {
     btnOkText: string = 'OK',
     btnCancelText: string = 'Cancel',
     dialogSize: 'sm'|'lg' = 'sm'): Promise<boolean> {
-    const modalRef = this.modalService.open(ConfirmationDialogComponent, { size: dialogSize });
+    const modalRef = this.modalService.open(ConfirmDialogComponent, { size: dialogSize });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.message = message;
     modalRef.componentInstance.btnOkText = btnOkText;

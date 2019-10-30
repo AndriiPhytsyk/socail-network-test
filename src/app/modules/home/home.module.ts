@@ -24,6 +24,9 @@ import {PostDetailComponent} from './user-profile/user-posts/post/post-detail/po
 import { PostCommentsComponent } from './user-profile/user-posts/post/post-comments/post-comments.component';
 import {CanDeactivateGuard} from '../../guards/can-deactivate';
 import {PostCommentComponent} from './user-profile/user-posts/post/post-comments/post-comments/post-comment.component';
+import {ConfirmationDialogComponent} from '../shared/components/confirmation-dialog/confirmation-dialog.component';
+import {ConfirmDialogComponent} from '../shared/components/confirm-dialog/confirm-dialog.component';
+import {ConfirmDialogService} from '../shared/services/confirm-dialog.service';
 
 
 
@@ -57,9 +60,10 @@ import {PostCommentComponent} from './user-profile/user-posts/post/post-comments
     SharedModule,
     TranslateModule
   ],
-  providers: [CanDeactivateGuard ],
+  providers: [CanDeactivateGuard],
   entryComponents: [
-    PostPreviewComponent
+    PostPreviewComponent,
+    ConfirmDialogComponent
   ],
 
 })

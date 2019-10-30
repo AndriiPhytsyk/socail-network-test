@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {PostsService} from '../../../../../../../services/posts.service';
 import {CommentsService} from '../../../../../../../services/comments.service';
 import {Router} from '@angular/router';
 import {DataService} from '../../../../../../../services/data.service';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-post-comment',
@@ -15,7 +16,6 @@ export class PostCommentComponent implements OnInit {
   imagePath: string;
   url: string;
 
-  showedCommentInput = false;
   replyCommentInput = false;
   selectedFile = null;
   comment = '';
@@ -65,4 +65,9 @@ export class PostCommentComponent implements OnInit {
     this.isRepliesShown = !this.isRepliesShown;
     this.replyCommentInput = true;
   }
+
+  watchInputValue() {
+    this.dataService.subCommentInputValue(this.subComment);
+  }
+
 }

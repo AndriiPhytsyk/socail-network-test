@@ -4,11 +4,11 @@ import {HttpClient} from '@angular/common/http';
 import {GLOBAL} from './global';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {UserInfo} from '../modules/shared/models/userInfo';
+import {IUserInfo} from '../modules/shared/models/IUserInfo';
 import {Post} from '../interfaces/post/post';
 
 interface Users {
-  users: UserInfo[];
+  users: IUserInfo[];
   total;
 }
 
@@ -35,7 +35,7 @@ export class UserService {
       }));
   }
 
-  getUserById(id): Observable<UserInfo> {
+  getUserById(id): Observable<IUserInfo> {
     return this.http.get<any>(`http://${GLOBAL.url}/users/${id}`)
       .pipe(map( result => {
         return result.user;
@@ -47,6 +47,7 @@ export class UserService {
   }
 
   editUserInfo(userInfo) {
+    debugger
     return this.http.put<any>(`http://${GLOBAL.url}/users/me`, userInfo);
   }
 

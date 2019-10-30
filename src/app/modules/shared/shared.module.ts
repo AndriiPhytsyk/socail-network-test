@@ -15,6 +15,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BrowserModule} from '@angular/platform-browser';
 import {ScrollEventModule} from 'ngx-scroll-event';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -38,17 +39,23 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     BrowserAnimationsModule,
     BrowserModule,
     ScrollEventModule,
-    MaterialModule
+    FlexLayoutModule
   ],
   imports: [
     CommonModule,
-    FormsModule,
+    TranslateModule,
     HttpClientModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    NgbModule,
+    FormsModule,
+    AngularFontAwesomeModule,
+    ImageCropperModule,
     ScrollingModule,
     BrowserAnimationsModule,
     BrowserModule,
     ScrollEventModule,
-    MaterialModule
+    FlexLayoutModule
   ],
   entryComponents: [ConfirmationDialogComponent],
   providers: [ConfirmationDialogService]

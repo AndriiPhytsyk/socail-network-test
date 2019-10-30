@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../../services/user.service';
-import {UserInfo} from '../../../shared/models/userInfo';
+import {IUserInfo} from '../../../shared/models/IUserInfo';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
@@ -12,7 +12,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class EditProfileComponent implements OnInit {
 
   submitted = false;
-  userInfo: UserInfo = {};
+  userInfo: IUserInfo = {};
   private id: string;
 
   userInfoForm: FormGroup;
@@ -42,11 +42,12 @@ export class EditProfileComponent implements OnInit {
     const {name, lastname, city, country, description} = this.userInfoForm.value;
     let {age} = this.userInfoForm.value;
     age = +age;
-    const userInfo = new UserInfo(name, lastname, city, country, age, description);
-    this.userService.editUserInfo(userInfo)
+
+    // const userInfo = (name, lastname, city, country, age, description);
+    this.userService.editUserInfo({name, lastname, city, country, age, description})
       .subscribe(result => {
         if (result.success) {
-          this.userInfo = userInfo;
+          this.userInfo = result.userInfo;
           this.router.navigate(['/users/me'], {
             queryParams: {
               informationEdited: true

@@ -61,6 +61,7 @@ export class HomeComponent {
   }
 
   searchUsersByWord() {
+    debugger
     this.userService.searchUserByWord(this.searchUsers)
       .subscribe();
   }

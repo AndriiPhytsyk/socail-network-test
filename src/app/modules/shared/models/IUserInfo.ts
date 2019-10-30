@@ -1,5 +1,4 @@
 export interface IUserInfo {
-  id?: string;
   name?: string;
   lastname?: string;
   image?: string;
@@ -10,9 +9,11 @@ export interface IUserInfo {
   description?: string;
   role?: string;
   deleted?: boolean;
+  id?: string;
+
 }
 
-export class UserInfo implements IUserInfo {
+export class IUserInfo implements IUserInfo {
   constructor(
   public name?: string,
   public lastname?: string,

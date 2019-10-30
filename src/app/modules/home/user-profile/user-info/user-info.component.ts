@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../../../services/user.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {AlertService} from '../../../shared/services/alert.service';
-import {UserInfo} from '../../../shared/models/userInfo';
+import {IUserInfo} from '../../../shared/models/IUserInfo';
 
 @Component({
  selector: 'app-user-info',
@@ -13,7 +13,7 @@ import {UserInfo} from '../../../shared/models/userInfo';
 export class UserInfoComponent implements OnInit {
 
  selectedFile = null;
- userInfo: UserInfo;
+ userInfo: IUserInfo;
  isUserInfoLoaded = false;
  isImageLoaded = false;
 

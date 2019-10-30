@@ -7,6 +7,7 @@ import {ScrollEvent} from 'ngx-scroll-event';
 import {BehaviorSubject} from 'rxjs';
 import {ConfirmDialogService} from '../../../../shared/services/confirm-dialog.service';
 import {DataService} from '../../../../../services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post',
@@ -38,7 +39,8 @@ export class PostComponent implements OnInit, AfterViewInit {
     private confirmDialogService: ConfirmDialogService,
     private confirmationDialogService: ConfirmationDialogService,
     private commentsService: CommentsService,
-    private dataService: DataService
+    private dataService: DataService,
+    private router: Router
   ) {
   }
 
@@ -56,6 +58,7 @@ export class PostComponent implements OnInit, AfterViewInit {
           this.postsService.deletePost(id)
             .subscribe(res => {
               this.postDeleted.emit(id);
+              this.router.navigate(['/users/me/posts']);
             });
         }
       });
@@ -79,6 +82,7 @@ export class PostComponent implements OnInit, AfterViewInit {
     } else {
       this.postsService.addComment(this.id, {text: this.postComment})
         .subscribe(res => {
+
           this.comments.unshift(res.comment);
           this.showedCommentInput = false;
           this.postComment = '';
@@ -100,26 +104,15 @@ export class PostComponent implements OnInit, AfterViewInit {
         if (event.target.files[0].name.includes('.txt')) {
           return this.url = '../../../../../../assets/images/upload-files/txt.png';
         }
-
         this.url = reader.result as string; // add source to image
       };
     }
   }
 
   public handleScroll(event: ScrollEvent) {
-    console.log('scroll occurred', event.originalEvent);
     if (event.isReachingBottom && !event.isWindowEvent) {
       this.isReachingBottom.next(true);
-      console.log(111, this.isReachingBottom);
-      console.log(`the user is reaching the bottom`);
     }
-    // if (event.isReachingTop) {
-    //   console.log(`the user is reaching the bottom`);
-    // }
-    // if (event.isWindowEvent) {
-    //   console.log(`This event is fired on Window not on an element.`);
-    // }
-
   }
 
   showCommentInput() {
@@ -134,12 +127,15 @@ export class PostComponent implements OnInit, AfterViewInit {
   }
 
   showCommentsCount() {
-    let subCommentsCount = 0;
-    this.comments.forEach(comment => {
-      subCommentsCount += comment.responses.length;
-    });
+    if (this.comments) {
+      let subCommentsCount = 0;
+      this.comments.forEach(comment => {
+        subCommentsCount += comment.responses.length;
+      });
 
-    return this.comments.length + subCommentsCount;
+      return this.comments.length + subCommentsCount;
+    }
+
   }
 
   watchInputValue() {

@@ -17,15 +17,12 @@ export class UserPostsComponent implements OnInit {
   @ViewChild('addPost', {static: false}) addPost;
 
   posts: Post[] = [];
-  userImage: string;
   postText = '';
   fileData: File = null;
   previewUrl: any = null;
-  postsLoaded = false;
 
   constructor(
     private postsService: PostsService,
-    private modalService: NgbModal,
     private userService: UserService) {
   }
 
@@ -36,12 +33,6 @@ export class UserPostsComponent implements OnInit {
         this.posts = posts;
       });
   }
-
-  openModal() {
-    const modalInstance = this.modalService.open(this.addPost, {centered: true});
-
-  }
-
 
   fileProgress(fileInput: any) {
     console.log(fileInput);
@@ -69,9 +60,13 @@ export class UserPostsComponent implements OnInit {
     formData.append('text', this.postText);
     this.postsService.createPost(formData)
       .subscribe(res => {
+        console.log(63,res);
+        const {post} = res;
+        post.images[0] = this.previewUrl;
         // this.uploadedFilePath = res.data.filePath;
-        this.posts.unshift(res.post);
-        console.log(123, this.posts);
+        this.posts.unshift(post);
+        this.postText = '';
+        this.previewUrl = null;
       });
   }
 

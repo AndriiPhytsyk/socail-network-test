@@ -1,9 +1,9 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {PostsService} from '../../../../../../../services/posts.service';
 import {CommentsService} from '../../../../../../../services/comments.service';
 import {Router} from '@angular/router';
 import {DataService} from '../../../../../../../services/data.service';
-import {take} from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-post-comment',
@@ -41,7 +41,7 @@ export class PostCommentComponent implements OnInit {
   }
 
   addSubComment() {
-    this.commentsService.replyToComment(this.subComment, this.postComment._id)
+    this.commentsService.replyToComment(this.subComment, this.postComment._id).pipe(take(1))
       .subscribe(res => {
         this.postComment.responses.push({text: this.subComment}); // todo
         this.replyCommentInput = false;

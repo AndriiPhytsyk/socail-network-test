@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 // import {MaterialModule} from './material.module';
 import {AuthModule} from './modules/auth/auth.module';
 import {FormsModule} from '@angular/forms';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HomeModule} from './modules/home/home.module';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
@@ -43,7 +42,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule,
     AuthModule,
     FormsModule,
-    FlexLayoutModule,
     BrowserAnimationsModule,
     HomeModule,
     HttpClientModule,

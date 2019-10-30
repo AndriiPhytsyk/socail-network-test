@@ -116,6 +116,11 @@ body {
   padding: 0.8375em 0;
 }
 
+*:focus {
+  outline: none !important;
+  border: 0 !important;
+}
+
 .fadeIn {
   animation: fadeIn .25s ease-in;
 }

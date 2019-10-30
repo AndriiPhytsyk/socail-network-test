@@ -1,6 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '../../../services/user.service';
-import {UserInfo} from '../../shared/models/userInfo';
+import {IUserInfo} from '../../shared/models/IUserInfo';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -10,7 +10,7 @@ import {Subscription} from 'rxjs';
 })
 export class UsersComponent implements OnInit, OnDestroy {
 
-  users: UserInfo[];
+  users: IUserInfo[];
 
   public totalUsersAmount = 0;
   private currentPage = 1;

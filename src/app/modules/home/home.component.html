@@ -1,46 +1,66 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" [routerLink]="['/users/me']">Social-network</a>
-  <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
-    <ul class="navbar-nav dropdown justify-content " ngbDropdown>
-      <form class="form-inline">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="searchUsers " [ngModelOptions]="{standalone: true}" >
-        <button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="searchUsersByWord()">Search</button>
-      </form>
-      <li class="d-flex align-items-center">
-        <mat-select #langSelect class="text_uppercase" (selectionChange)="translate.use(langSelect.value)" name=""
-                    id="">
-          <mat-option *ngFor="let lang of translate.getLangs()" [value]="lang">{{lang}}
-          </mat-option>
-        </mat-select>
-      </li>
-      <li>
-        <a class="nav-link dropdown-toggle c-pointer" id="navbarDropdown" role="button" ngbDropdownToggle>
-          <i class="fa fa-user"></i>
-        </a>
-        <div aria-labelledby="navbarDropdown" class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
-          <a (click)="deleteUser()" class="c-pointer" ngbDropdownItem><i class="fa fa-trash" aria-hidden="true"></i>
-            Delete user</a>
-          <a (click)="logOut()" class="c-pointer" ngbDropdownItem><i class="fa fa-sign-out" aria-hidden="true"></i>
-            Logout</a>
-        </div>
-      </li>
-    </ul>
+<mat-toolbar color="primary">
+  <span [routerLink]="['/users/me']">Social-network</span>
+  <span class="spacer"></span>
+  <div class="d-flex">
+    <div class="p-2">
+      <mat-form-field class="mr-1" floatLabel="never">
+        <input
+          matInput
+          type="text"
+          placeholder="Search users"
+          [(ngModel)]="searchUsers"
+        >
+      </mat-form-field>
+      <button mat-raised-button (click)="searchUsersByWord()">Search</button>
+    </div>
+    <div class="d-flex align-items-center p-2">
+      <mat-label>{{translate.currentLang}}</mat-label>
+      <mat-select
+        #langSelect
+        class="text_uppercase"
+        (selectionChange)="translate.use(langSelect.value)"
+        name=""
+        id=""
+      >
+        <mat-option
+          *ngFor="let lang of translate.getLangs()"
+          [value]="lang">
+          {{lang}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="d-flex align-items-center p-2">
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="deleteUser()">
+          <mat-icon>delete</mat-icon>
+          Delete user
+        </button>
+        <button mat-menu-item (click)="logOut()">
+          <mat-icon>logout</mat-icon>
+          Logout
+        </button>
+      </mat-menu>
+    </div>
   </div>
-</nav>
-
+</mat-toolbar>
 <div class="container mt-5">
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-md-8">
       <app-user-profile></app-user-profile>
-      <div class="col-sm-12 mt-3">
+      <div class="col-md-12 mt-3">
         <router-outlet></router-outlet>
       </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-md-4">
       <app-users></app-users>
     </div>
   </div>
 </div>
+
+
 
 
 

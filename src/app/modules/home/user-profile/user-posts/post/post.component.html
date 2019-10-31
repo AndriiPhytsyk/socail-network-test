@@ -3,10 +3,13 @@
     <!-- Post Content Column -->
     <div class="col-sm-12">
       <mat-card class="post-card">
-        <mat-card-header>
-          <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-          <div mat-card-avatar class="header-image"></div>
+        <mat-card-header class="d-flex justify-content-between">
           <mat-card-subtitle>
+            <div class="d-flex mb-3">
+              <div mat-card-avatar class="header-image mr-2"></div>
+              <h5>Dog Breed</h5>
+            </div>
+
             <p>Posted on January 1, 2019 at 12:00 PM</p>
           </mat-card-subtitle>
           <div>
@@ -19,12 +22,12 @@
           <p>{{text}}</p>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-button (click)="showCommentInput()">Comment</button>
-            <button mat-button [routerLink]="['/users/me/posts/', id]">
-              <mat-icon>share</mat-icon>
-              <span>Share</span>
-            </button>
-            <button mat-button (click)="showComments()">{{showCommentsCount()}} Comments</button>
+          <button mat-button (click)="showCommentInput()">Comment</button>
+          <button mat-button [routerLink]="['/users/me/posts/', id]">
+            <mat-icon>share</mat-icon>
+            <span>Share</span>
+          </button>
+          <button mat-button (click)="showComments()">{{showCommentsCount()}} Comments</button>
         </mat-card-actions>
         <div class="row">
           <ng-container *ngIf="isCommentsShown">
@@ -40,15 +43,19 @@
           </ng-container>
           <ng-container *ngIf="showedCommentInput">
             <div class="col-sm-12">
-              <span class="counter mt-3 d-block text-right">{{postComment.length}}/50</span>
-              <input
-                class="form-control mb-2"
-                type="text"
-                [(ngModel)]="postComment"
-                (keyup.enter)="addComment()"
-                maxlength="50"
-                (input) = 'watchInputValue()'
-              >
+              <!--<span class="counter mt-3 d-block text-right">{{postComment.length}}/50</span>-->
+              <!--<input-->
+              <!--class="form-control mb-2"-->
+              <!--type="text"-->
+              <!--[(ngModel)]="postComment"-->
+              <!--(keyup.enter)="addComment()"-->
+              <!--maxlength="50"-->
+              <!--(input) = 'watchInputValue()'-->
+              <!--&gt;-->
+              <!--<ckeditor-->
+                <!--[(ngModel)]="ckeditorContent"-->
+
+              <!--</ckeditor>-->
             </div>
 
             <div class="row">

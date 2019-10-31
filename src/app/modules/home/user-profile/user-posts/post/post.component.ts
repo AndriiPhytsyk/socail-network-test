@@ -1,13 +1,16 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {UserService} from '../../../../../services/user.service';
-import {PostsService} from '../../../../../services/posts.service';
-import {ConfirmationDialogService} from '../../../../shared/services/confirmation-dialog.service';
-import {CommentsService} from '../../../../../services/comments.service';
-import {ScrollEvent} from 'ngx-scroll-event';
-import {BehaviorSubject} from 'rxjs';
-import {ConfirmDialogService} from '../../../../shared/services/confirm-dialog.service';
-import {DataService} from '../../../../../services/data.service';
+import { AfterViewChecked, AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { UserService } from '../../../../../services/user.service';
+import { PostsService } from '../../../../../services/posts.service';
+import { ConfirmationDialogService } from '../../../../shared/services/confirmation-dialog.service';
+import { CommentsService } from '../../../../../services/comments.service';
+import { ScrollEvent } from 'ngx-scroll-event';
+import { BehaviorSubject } from 'rxjs';
+import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
+import { DataService } from '../../../../../services/data.service';
 import { Router } from '@angular/router';
+// import { CKEditorComponent } from 'ng2-ckeditor/ckeditor.component';
+
+
 
 @Component({
   selector: 'app-post',
@@ -23,6 +26,9 @@ export class PostComponent implements OnInit, AfterViewInit {
   @Input() comments: any;
   @Output() postDeleted = new EventEmitter();
 
+  // @ViewChild(CKEditorComponent, {static: false}) ckEditor: CKEditorComponent;
+
+
   postComment = '';
   showedCommentInput = false;
   isCommentsShown = false;
@@ -30,8 +36,19 @@ export class PostComponent implements OnInit, AfterViewInit {
   forbiddenWord = 'developer';
   imagePath = '';
   url = '';
+  // ckeditorContent = '<b>Hello</b>'
 
   isReachingBottom = new BehaviorSubject(false);
+  //
+  // onEditorChange(e) {
+  //   console.log(e);
+  // }
+
+  // ngAfterViewChecked() {
+  //   let editor = this.ckEditor.instance;
+  //   editor.config.height = '400';
+  //
+  // }
 
   constructor(
     private userService: UserService,

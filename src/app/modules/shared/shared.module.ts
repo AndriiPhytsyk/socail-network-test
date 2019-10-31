@@ -16,12 +16,32 @@ import {BrowserModule} from '@angular/platform-browser';
 import {ScrollEventModule} from 'ngx-scroll-event';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
     ConfirmationDialogComponent,
     PaginationComponent,
     ConfirmDialogComponent
+  ],
+
+  imports: [
+    CommonModule,
+    TranslateModule,
+    HttpClientModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    NgbModule,
+    FormsModule,
+    AngularFontAwesomeModule,
+    ImageCropperModule,
+    ScrollingModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    ScrollEventModule,
+    FlexLayoutModule,
+    QuillModule.forRoot()
+
   ],
 
   exports: [
@@ -39,23 +59,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     BrowserAnimationsModule,
     BrowserModule,
     ScrollEventModule,
-    FlexLayoutModule
-  ],
-  imports: [
-    CommonModule,
-    TranslateModule,
-    HttpClientModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    NgbModule,
-    FormsModule,
-    AngularFontAwesomeModule,
-    ImageCropperModule,
-    ScrollingModule,
-    BrowserAnimationsModule,
-    BrowserModule,
-    ScrollEventModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    QuillModule
   ],
   entryComponents: [ConfirmationDialogComponent],
   providers: [ConfirmationDialogService]

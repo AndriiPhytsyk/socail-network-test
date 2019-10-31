@@ -1,10 +1,10 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {AuthenticationService} from '../../services/authentication.service';
-import {TranslateService} from '@ngx-translate/core';
-import {Router} from '@angular/router';
-import {ConfirmationDialogService} from '../shared/services/confirmation-dialog.service';
-import {UserService} from '../../services/user.service';
-import {ConfirmDialogService} from '../shared/services/confirm-dialog.service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AuthenticationService } from '../../services/authentication.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { ConfirmationDialogService } from '../shared/services/confirmation-dialog.service';
+import { UserService } from '../../services/user.service';
+import { ConfirmDialogService } from '../shared/services/confirm-dialog.service';
 
 @Component({
   selector: 'app-home',
@@ -24,16 +24,6 @@ export class HomeComponent {
   ) {
   }
 
-
-  // public logOut() {
-  //   this.confirmationDialogService.confirm('Please confirm..', 'Do you really want to log out ?')
-  //     .then((confirmed) => {
-  //       if (confirmed) {
-  //          this.authenticationService.logout();
-  //       }
-  //     })
-  //     .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
-  // }
 
   public logOut() {
     this.confirmDialogService.confirm('Підтвердження', 'Ви дійсно хочете вийти?', 'Так', 'Ні')
@@ -61,7 +51,6 @@ export class HomeComponent {
   }
 
   searchUsersByWord() {
-    debugger
     this.userService.searchUserByWord(this.searchUsers)
       .subscribe();
   }

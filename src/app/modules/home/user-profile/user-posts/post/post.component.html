@@ -19,7 +19,7 @@
         </mat-card-header>
         <img [routerLink]="['/users/me/posts/detail/', id]" mat-card-image src="{{image}}">
         <mat-card-content>
-          <p>{{text}}</p>
+          <quill-view [content]="text" format="text" theme="snow"></quill-view>
         </mat-card-content>
         <mat-card-actions>
           <button mat-button (click)="showCommentInput()">Comment</button>
@@ -43,6 +43,26 @@
           </ng-container>
           <ng-container *ngIf="showedCommentInput">
             <div class="col-sm-12">
+
+              <quill-editor [(ngModel)]="postComment"
+                            placeholder="Enter Text"
+                            [modules]="quillConfig"
+                            (onSelectionChanged)="onSelectionChanged($event)"
+                            (onContentChanged)="onContentChanged($event)"
+                            (keyup.enter)="addComment()"
+
+              ></quill-editor>
+
+              <button class="btn btn-success mt-3" (click)="addComment()">Add Comment</button>
+
+              <!--<div class="toolbar">-->
+                <!--<button class="ql-bold">Bold</button>-->
+                <!--<button class="ql-emoji"></button>-->
+              <!--</div>-->
+
+              <!--<div>-->
+                <!--<pre>{{htmlText}}</pre>-->
+              <!--</div>-->
               <!--<span class="counter mt-3 d-block text-right">{{postComment.length}}/50</span>-->
               <!--<input-->
               <!--class="form-control mb-2"-->
@@ -58,14 +78,14 @@
               <!--</ckeditor>-->
             </div>
 
-            <div class="row">
-              <div class="col-sm-12 px-4">
-                <input type='file' (change)="onSelectFile($event)">
-              </div>
-              <div class="col-sm-12 my-2">
-                <img [src]="url" height="100" width="100" *ngIf="url">
-              </div>
-            </div>
+            <!--<div class="row">-->
+              <!--<div class="col-sm-12 px-4">-->
+                <!--<input type='file' (change)="onSelectFile($event)">-->
+              <!--</div>-->
+              <!--<div class="col-sm-12 my-2">-->
+                <!--<img [src]="url" height="100" width="100" *ngIf="url">-->
+              <!--</div>-->
+            <!--</div>-->
           </ng-container>
         </div>
       </mat-card>

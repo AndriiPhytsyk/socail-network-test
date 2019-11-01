@@ -17,6 +17,7 @@ import {ScrollEventModule} from 'ngx-scroll-event';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { QuillModule } from 'ngx-quill';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { QuillModule } from 'ngx-quill';
     BrowserModule,
     ScrollEventModule,
     FlexLayoutModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    CKEditorModule
 
   ],
 
@@ -60,7 +62,8 @@ import { QuillModule } from 'ngx-quill';
     BrowserModule,
     ScrollEventModule,
     FlexLayoutModule,
-    QuillModule
+    QuillModule,
+    CKEditorModule
   ],
   entryComponents: [ConfirmationDialogComponent],
   providers: [ConfirmationDialogService]

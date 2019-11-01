@@ -2,7 +2,7 @@
   <img class="comment-image" [src]="postComment.files[0]" alt="">
 </p>
 <p class="comment my-1 fadeIn">
-  {{postComment.text}}
+  <quill-view-html [content]="postComment.text" theme="snow"></quill-view-html>
   <a href="{{postComment.files[0]}}" class="file-reference">{{postComment.files[0]}}</a>
 
 </p>

@@ -3,6 +3,7 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import '~@ngx-share/button/themes/default/default-theme';
 @import '~quill/dist/quill.snow.css';
+@import "~quill-emoji/dist/quill-emoji.css";
 @import "~quill-mention/dist/quill.mention.min.css";
 
 
@@ -133,4 +134,12 @@ body {
   100% {
     opacity:1;
   }
+}
+
+#cke_editor1 {
+  display: none;
+}
+
+.ql-container {
+  height: fit-content;
 }
